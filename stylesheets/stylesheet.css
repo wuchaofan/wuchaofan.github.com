@@ -15,7 +15,10 @@ body {
   max-width: 600px;
   margin: 0 auto;
 }
+.headerid{
+  display:block;
 
+}
 section {
   display: block;
   margin: 0 0 20px 0;
@@ -68,7 +71,12 @@ header h2 {
   color: #666;
 }
 
-#downloads .btn {
+#github .btn {
+  display: inline-block;
+  text-align: center;
+  margin: 0;
+}
+#cnblogs .btn {
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -220,6 +228,10 @@ hr {
 .btn-github .icon {
   opacity: 0.6;
   background: url("../images/blacktocat.png") 0 0 no-repeat;
+}
+.btn-cnblogs .icon {
+  opacity: 0.6;
+  background:  0 0 no-repeat;
 }
 
 /* Links
