@@ -17,7 +17,7 @@ body {
 }
 .headerid{
   display:block;
-
+  height: 250px;
 }
 section {
   display: block;
