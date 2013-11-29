@@ -111,3 +111,10 @@ a{
     margin-left: 10px;
     color: white;
 }
+
+.time{
+  font-style: italic;
+  color: #aaaaaa;
+  margin-right: 10px;
+  margin-left: 10px;
+}
