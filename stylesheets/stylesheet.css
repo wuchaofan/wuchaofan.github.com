@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   /*background: #151515 url("../images/bkg.png") 0 0;*/
-  background: #101010;
+  background: #202020;
   font: 16px;
   line-height: 1.5;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
@@ -95,7 +95,7 @@ a{
   border-radius: 10px;
   margin: auto;
   padding-top: 5px;
-  border: 5px solid #090909;
+  border: 7px solid #161616;
   
 }
 
