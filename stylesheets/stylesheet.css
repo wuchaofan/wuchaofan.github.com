@@ -20,8 +20,13 @@ h1, h2, h3, h4, h5, h6 {
 
 li {
   line-height: 1.4 ;
+  border: 2px solid #202020;
+  background: #111111;
+  margin: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 5px;
 }
-
 
 #header {
   background: rgba(0, 0, 0, 0.1);
@@ -76,6 +81,7 @@ a{
   list-style-type: none;
 
 }
+
 .hstyle1{
   float: left;
 }
