@@ -1,0 +1,64 @@
+
+#divtitle{
+	padding-top: 30px;
+	float: left;
+}
+#divgithub{
+	padding-top: 100px;
+	float: right;
+}
+#clear{
+	clear: both;
+}
+#center{
+	width: 90%;
+	max-width: 600px;
+	margin: auto;
+}
+#seccenter{
+	width: 90%;
+	max-width: 600px;
+	margin: auto;
+}
+#divtitle h1{
+	font-size: 50px;
+	color: #d3d3d3;
+}
+#divgithub h3{
+	color: #d3d3d3;
+}
+#divuse{
+	color: green;
+}
+body{
+	background-color: #d3d3d3;
+}
+a{
+	text-decoration: none;
+}
+#first{
+	height: 25%;
+	
+	background-color: black;
+	/*display: none;*/
+}
+#download{
+	padding-top: 50px;
+}
+#divtop{
+	margin: -8px;
+	/*margin-top: -20px;	*/
+}
+#divimage{
+	width: 60%;
+	margin: auto;
+}
+.codep{
+	background-color: #228822;
+	padding: 5px;
+}
+
+.bottomline{
+	height: 40px;
+	background-color: #d3d3d3;
+}
