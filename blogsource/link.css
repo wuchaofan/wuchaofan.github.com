@@ -1,4 +1,10 @@
-
+#gohome{
+	background-color: gray;
+	top: 160px;
+	left: 100px;
+	position: fixed;
+	padding: 20px;
+}
 #divtitle{
 	padding-top: 30px;
 	float: left;
