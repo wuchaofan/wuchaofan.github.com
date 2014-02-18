@@ -98,10 +98,10 @@ a{
   color: #b5e853;
   max-width: 60%;
   min-height: 550px;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
   margin: auto;
   padding-top: 5px;
-  border: 7px solid #404040;
+  /*border: 7px solid #404040;*/
   
 }
 
