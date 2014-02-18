@@ -94,14 +94,14 @@ a{
 }
 
 .mainw{
-  background: #202020;
+  background: #505050;
   color: #b5e853;
   max-width: 60%;
   min-height: 550px;
   border-radius: 10px;
   margin: auto;
   padding-top: 5px;
-  border: 7px solid #161616;
+  border: 7px solid #404040;
   
 }
 
@@ -120,7 +120,7 @@ a{
 
 .time{
   font-style: italic;
-  color: #aaaaaa;
+  color: #cccccc;
   margin-right: 10px;
   margin-left: 10px;
 }
