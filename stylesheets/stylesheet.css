@@ -124,3 +124,13 @@ a{
   margin-right: 10px;
   margin-left: 10px;
 }
+#foot{
+  height: 40px;
+}
+#divfoot{
+
+  padding-top: 20px;
+  padding-left: 30px;
+  color: #aaaaaa;
+  font-size: 5px;
+}
