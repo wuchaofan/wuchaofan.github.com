@@ -94,7 +94,7 @@ a{
 }
 
 .mainw{
-  background: #555555;
+  background: #777777;
   color: #b5e853;
   max-width: 60%;
   min-height: 550px;
@@ -121,7 +121,7 @@ a{
 
 .time{
   font-style: italic;
-  color: #cccccc;
+  color: #dcdcdc;
   margin-right: 10px;
   margin-left: 10px;
 }
