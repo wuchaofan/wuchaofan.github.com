@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>python算法</title>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<script type="text/javascript">
+</script>
+	<style type="text/css">
+	#leftclass{
+		float: left;
+		width: 15%;
+		margin-top: 25px;
+	}
+	#rightclass{
+		float: left;
+		margin-top: 20px;
+		background-color: white;
+		width: 80%;
+		border-radius: 10px;
+
+		box-shadow: 0 0 15px rgba(0,0,0,.6);
+		padding: 5px;
+		height: 900px;
+	}
+	body{
+		background-color: #333333;
+
+	}
+	a{
+		color: white;
+		text-decoration:none
+	}
+	li{
+		list-style-type:none;
+		margin-top: 10px;
+	}
+	</style>
+</head>
+<body>
+<div>
+	<div id="leftclass">
+		<ul>
+			<li><a href="#quicksort">快速排序</a></li>
+			<li><a href="#klji">K阶临近值</a></li>
+		</ul>
+	</div>
+	<div id="rightclass">
+		<p id="quicksort"> 1 .快速排序</p>
+		<pre>
+		<code class="python">
+#qsort
+def partition(arr,left,right):
+	i = left + 1
+	j = right
+	first = arr[left]
+	while True:
+
+		while i<=j and arr[i]<=first: i+=1
+		while j>=i and arr[j]>=first: j-=1
+
+		if i>j:
+			break
+
+		arr[i],arr[j] = arr[j],arr[i]
+	arr[left],arr[j] = arr[j],arr[left]
+
+	return j
+
+
+def _qsort(arr,left,right):
+	if left < right:
+
+		point = partition(arr,left,right)
+
+		_qsort(arr,left,point-1)
+		_qsort(arr,point+1,right)
+
+def Qsort(arr):
+	_qsort(arr,0,len(arr)-1)
+	return arr
+
+test = [12,4,5,6,1,2,32,6,67]
+print Qsort(test)
+
+		</code>
+		</pre>
+	</div>
+</div>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
