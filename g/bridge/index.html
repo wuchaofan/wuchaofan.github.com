@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="ff.png" />
+	<meta name="viewport" content="width=device-width">
+	<title>独木桥</title>
+	<script type="text/javascript" src="jquery.2.0.0.min.js"></script>
+	<style type="text/css">
+	html,body{
+		overflow:hidden;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+/*		-moz-user-select: none;
+		-khtml-user-select: none; 
+		user-select: none;*/
+	}
+	body{
+		background-color: #99CCCC;
+	}
+	.zhuang{
+		position: absolute;
+		bottom: 0;
+		height: 30%;
+		background-color: #FF6666;
+		min-width: 20px;
+	}
+	#bridge{
+		position: absolute;
+		width: 10px;
+		/*height: 5px;*/
+		background-color: #FF6666;
+		-webkit-transform-origin: right bottom;
+	}
+	#ndoy{
+		position: absolute;
+		width: 10%;
+		height: 7%;
+		display: none;
+		z-index: 100;
+
+	}
+	#header{
+		height: 5%;
+		background-color: #FFCCCC;
+		text-align: center;
+
+	}
+	#score{
+		margin: 0;
+		line-height: 1.8;
+		/*color: white;*/
+		font-size: 18px;
+		text-shadow: 0px 0px 3px black;
+	}
+	#modelover{
+		position: absolute;
+		display: none;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(100,100,100,0.75);
+		z-index: 999;
+	}
+	#over{
+		position: relative;
+		height: 30%;
+		width: 50%;
+		left: 25%;
+		top: 20%;
+		background-color: #FF9900;
+		text-align: center;
+		/*font-size: 27px;*/
+		/*line-height: 3;*/
+		border-radius: 6px;
+	}
+	#over p{
+		font-size: 30px;
+		margin: 0;
+		line-height: 4;
+
+	}
+	#over div{
+		position: relative;
+		background-color: lightblue;
+		height: 20%;
+		font-size: 20px;
+		line-height: 1.8;
+		width: 40%;
+		left: 30%;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	#over div:hover{
+		background-color: lightgreen;
+
+	}
+	#game{
+		-webkit-touch-callout:none;
+		-webkit-user-select:none;
+		-khtml-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		user-select:none;
+	}
+	#tttimg{
+		display: none;
+	}
+	</style>
+</head>
+<body>
+<div id="tttimg">
+	<img src="game.png">
+</div>
+<div id="header">
+	<p id="score">分数: 0</p>
+</div>
+<div id="modelover" >
+	<div id="over">
+		<p>Game Over!</p>
+		<div>重玩</div>
+	</div>
+</div>
+<div id="game" unselectable="on" onselectstart="return false;">
+<img id="ndoy" src="n.gif">
+<div id="bridge"></div>
+</div>
+<script type="text/javascript">
+	var number=0;
+	var isDown=0;
+	var delay=250;
+	var nextTime=0;
+	var score = 0;
+	function createZhuang(leftp, widthp){
+		var windowWidth = $(document).width();
+		var width = 'width:'+ parseInt(widthp * windowWidth) +'px;';
+		var left = 'left: '+  windowWidth +'px;'
+		var q='<div class="zhuang" style="'+width+left+'"></div>';
+		$('#game').append(q);
+		$("#game .zhuang:last").animate({left: parseInt(leftp*windowWidth)  +'px'});
+
+
+	}
+
+	function randeseed(){
+		// var data = parseInt(40*Math.random())+20;
+		var firstdiv=$("#game .zhuang:first");
+		var lastdiv=$("#game .zhuang:last");
+		var l=48;
+		if(firstdiv.length>0){
+			//l = firstdiv[0].offsetLeft;
+			//console.log('left:' + l);
+			var offset = l + firstdiv.width();
+			firstdiv.animate({left: '-'+offset+'px'},function(){
+			});
+			$('#bridge').animate({left: '-'+(offset+100)+'px'},'fast',function(){
+				$('#bridge').remove();
+				//var leftp =parseInt( lastdiv.offset().left+lastdiv.width()-$("#bridge").width()-1);
+				var bb = '<div id="bridge" style="height: 0px;"></div>';
+				$('#game').append(bb);
+				var bottomp = 0.3* $(document).height() - $("#bridge").width();
+				$("#bridge").css({bottom: bottomp+'px'});
+			});
+			firstdiv.remove();
+
+			//console.log('leff1: ',l+lastdiv.width()-$("#ndoy").width());
+			$("#ndoy").animate({left: (l+lastdiv.width()-$("#ndoy").width())+'px'});
+			lastdiv.animate({left: l +'px'});
+			var tmp =Math.random();
+			var sleft = tmp*45/100+0.13+lastdiv.width()/ $(document).width();
+			var w = (tmp*20+1)/100;
+			// console.log(sleft,w);
+			createZhuang(sleft,w);
+
+		}else{
+			createZhuang(0.12,0.2);
+			$("#ndoy").css({left: $(document).width(),bottom: '29%'}).show().animate({left: '22%'});
+
+			createZhuang(0.46,0.12);
+
+		}
+
+	}
+	function Bridge(num){
+		var leftp = $("#game .zhuang:first").offset().left+$("#game .zhuang:first").width()-$("#bridge").width();
+		//console.log(leftp)
+		$("#bridge").css({height: number+'px',left: leftp+'px' })
+	}
+	function watcher(time){
+	  requestAnimationFrame(watcher);
+	  //nextTime=time+delay;
+	  if(isDown!==0){
+	    number+=isDown;
+	   // console.log(number);
+	    Bridge(number);
+	  }
+	}
+	$(function(){
+		var bottomp = 0.3* $(document).height() - $("#bridge").width();
+
+		$("#bridge").css({bottom: bottomp+'px'})
+		randeseed();
+		// $(document).click(function(){			
+		// 	randeseed();
+		// })
+		requestAnimationFrame(watcher);
+		//var count=1;
+		var timeout ; 
+		$(document).mousedown(function() {  
+			// e.preventDefault();
+			// e.stopPropagation();
+		    isDown=2;
+
+		});
+
+		$(document).mouseup(function(e) {
+			// e.preventDefault();
+			// e.stopPropagation();
+			number=0;
+			var a=0;
+			var c = setInterval(function(){
+				a+=2;
+				//console.log(a)
+				$("#bridge").css({'transform':'rotate('+ a +'deg)','-webkit-transform': 'rotate('+ a +'deg)'})
+				if(a===90){
+					window.clearInterval(c)
+					//console.log($("#bridge").height());
+					var last = $("#game .zhuang:last");
+					var distance = $("#game .zhuang:first").offset().left+$("#game .zhuang:first").width()+$("#bridge").height();
+					var nomaldis = last.offset().left+last.width();
+					if(distance>=last.offset().left && distance<=nomaldis){
+						score+=1;
+						$('#score').html('分数: '+ score);
+						var zdis = last.offset().left+ last.width();
+						$("#ndoy").animate({left: (zdis-$("#ndoy").width())+'px'},function(){
+							
+							randeseed();
+						})
+					}else{
+						score = 0;
+						$("#ndoy").animate({left: (distance)+'px'},function(){
+							$(this).animate({bottom: '-50px'})
+							$(this).remove();
+						})
+						$('#modelover').fadeIn();
+					}
+				}
+			},1);
+			
+		    isDown=0;  
+		});
+
+		$(document).mouseout(function() {  
+		    //clearTimeout(timeout);  
+		    isDown=0;
+		    //$("#mydiv").text("out");  
+		});
+		$('body').on('touchstart',function(event){
+			isDown=2;
+			// event.preventDefault();
+			// event.stopPropagation()
+
+		});
+		$('body').on('touchend',function(event){
+			number=0;
+			var a=0;
+			var c = setInterval(function(){
+				a+=2;
+				//console.log(a)
+				$("#bridge").css({'transform':'rotate('+ a +'deg)','-webkit-transform': 'rotate('+ a +'deg)'})
+				if(a===90){
+					window.clearInterval(c)
+					//console.log($("#bridge").height());
+					var last = $("#game .zhuang:last");
+					var distance = $("#game .zhuang:first").offset().left+$("#game .zhuang:first").width()+$("#bridge").height();
+					var nomaldis = last.offset().left+last.width();
+					if(distance>=last.offset().left && distance<=nomaldis){
+						score+=1;
+						$('#score').html('分数: '+ score);
+						var zdis = last.offset().left+ last.width();
+						$("#ndoy").animate({left: (zdis-$("#ndoy").width())+'px'},800,'swing',function(){
+							
+							randeseed();
+						})
+					}else{
+						score = 0;
+						$("#ndoy").animate({left: (distance)+'px'},function(){
+							$(this).animate({bottom: '-50px'},function(){
+								$(this).remove();
+								$('#modelover').fadeIn();
+
+							});
+
+						})
+					}
+				}
+			},1);
+			
+		    isDown=0;
+		 //    event.preventDefault();
+			// event.stopPropagation()
+
+		})
+		$('#over').click(function(event){
+
+			event.preventDefault();
+			event.stopPropagation();
+					window.location.reload();
+
+
+		});
+		$('#over').on('touchstart',function(event){
+			event.preventDefault();
+			event.stopPropagation();
+					window.location.reload();
+
+		})
+	})
+
+	function reloader(event){
+		window.location.reload();
+		//event.preventDefault();
+		event.stopPropagation()
+	}
+</script>
+</body>
+</html>
