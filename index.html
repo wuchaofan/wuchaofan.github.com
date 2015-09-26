@@ -90,21 +90,21 @@
 		// 	$('.left').removeClass('left-min');
 		// 	$('.right').removeClass('right-max');
 		// });
-		$(window).scroll(function(event){
-			event.stopPropagation();
-			event.preventDefault();
-			var top = $(window).scrollTop();
-			console.log(top);
-			var $hc = $('.head-content');
-			var he = $hc.height()
-			//if(top<=90 && top>=0){
-				$hc.css({transform: 'rotateX('+top*0.1+'deg)','-webkit-transform': 'rotateX('+top*0.1+'deg)'});
-				var heoffset =  Math.sin(2*Math.PI/360*top*0.1)*he;
-				//console.log(heoffset)
-				$('.content').css({transform: 'translateY(-'+(top*0.1+heoffset)+'px)','-webkit-transform': 'translateY(-'+(top*0.1+heoffset)+'px)'});
-			//}
+		// $(window).scroll(function(event){
+		// 	event.stopPropagation();
+		// 	event.preventDefault();
+		// 	var top = $(window).scrollTop();
+		// 	console.log(top);
+		// 	var $hc = $('.head-content');
+		// 	var he = $hc.height()
+		// 	//if(top<=90 && top>=0){
+		// 		$hc.css({transform: 'rotateX('+top*0.1+'deg)','-webkit-transform': 'rotateX('+top*0.1+'deg)'});
+		// 		var heoffset =  Math.sin(2*Math.PI/360*top*0.1)*he;
+		// 		//console.log(heoffset)
+		// 		$('.content').css({transform: 'translateY(-'+(top*0.1+heoffset)+'px)','-webkit-transform': 'translateY(-'+(top*0.1+heoffset)+'px)'});
+		// 	//}
 
-		});
+		// });
 
 	});
 </script>
