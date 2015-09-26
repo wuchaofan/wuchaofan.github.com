@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/materialize.min.css">
-	<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
-	<script type="text/javascript" src="javascripts/materialize.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
-
+	<title>凡人凡语</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/my.css">
 </head>
 <body>
-<div class="side-nav-button">
-	<a href="#" class="sidebar-nav">
-		<img src="images/bar.png">
-	</a>
-</div>
-<div class="side-bar">
-	<div class="user-cl">
-		<img src="images/user.png">
+<div class="left">
+	<div>
+		<div class="user-cl">
+			<img src="images/user.png">
+		</div>
 	</div>
 	<div>
 		<ul class="left-ul">
@@ -31,13 +24,12 @@
 		</ul>
 	</div>
 </div>
-<div class="home">
-  <div class="parallax-container">
-      <div class="parallax"><img src="images/d3.jpg"></div>
-  </div>
-  <div class="container">
-  	<div class="row">
-  		<div class="col s12 m12 l12">
+<div class="right">
+	<div class="head-content">
+		<p>自制Docker</p>
+	</div>
+	<div class="content">
+		<div>
 			<p>由于Docker的大热，驱使着本人一探究竟。
 			经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
 			<ul>
@@ -81,33 +73,40 @@
 					这仅仅是对文件系统的隔离，如果要让程序跑在像是独立的系统里，我们还需要网络隔离。这就需要强大的ip命令。
 
 				</p>
+				<p class="develop">待续...</p>
 		</div>
-  		
-  	</div>
-  	<div class="row">
-  		<div class="col s12 m12 l12">
-			<p class="develop">待续...</p>
-  		</div>
-  	</div>
-  </div>
+	</div>
+
 </div>
-  <script type="text/javascript">
-  $(function(){
-  	$('.parallax').parallax();
-  	$(".button-collapse").sideNav();
+<div style="clear: both;"></div>
+<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// $('.left').mouseout(function(){
+		// 	$('.left').addClass('left-min');
+		// 	$('.right').addClass('right-max');
+		// });
+		// $('.left').mouseover(function(){
+		// 	$('.left').removeClass('left-min');
+		// 	$('.right').removeClass('right-max');
+		// });
+		// $(window).scroll(function(event){
+		// 	event.stopPropagation();
+		// 	event.preventDefault();
+		// 	var top = $(window).scrollTop();
+		// 	console.log(top);
+		// 	var $hc = $('.head-content');
+		// 	var he = $hc.height()
+		// 	//if(top<=90 && top>=0){
+		// 		$hc.css({transform: 'rotateX('+top*0.1+'deg)','-webkit-transform': 'rotateX('+top*0.1+'deg)'});
+		// 		var heoffset =  Math.sin(2*Math.PI/360*top*0.1)*he;
+		// 		//console.log(heoffset)
+		// 		$('.content').css({transform: 'translateY(-'+(top*0.1+heoffset)+'px)','-webkit-transform': 'translateY(-'+(top*0.1+heoffset)+'px)'});
+		// 	//}
 
-  	$('.sidebar-nav').click(function(){
-  		if($(this).hasClass('sidebar-nav-move')){
-	  		$(this).removeClass('sidebar-nav-move');
-	  		$('.side-bar').removeClass('side-bar-show');
+		// });
 
-  		}else{
-	  		$(this).addClass('sidebar-nav-move');
-	  		$('.side-bar').addClass('side-bar-show');
-	  	}
-  		// $('.home').addClass('home-side');
-  	})
-  })
-  </script>
+	});
+</script>
 </body>
 </html>

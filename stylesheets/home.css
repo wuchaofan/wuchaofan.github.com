@@ -1,0 +1,127 @@
+html {
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+.parallax-container {
+	height: 400px;
+}
+.row-contain{
+	height: 500px;
+	background-color: red;
+
+	width: 100%;
+}
+.home{
+	width: 100%;
+	transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+.sidebar-nav{
+	position: absolute;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    z-index: 700;
+    background-color: #333332;
+    border: 0;
+    font-size: 28px;
+    /*left: 10px;*/
+    transform: translateX(10px);
+    -webkit-transform: translateX(10px);
+    -webkit-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.side-nav-button{
+	z-index: 102;
+    top: 5px;
+    position: fixed;
+}
+.sidebar-nav img{
+	width: 100%;
+	height: 100%;
+	border-radius: 2px;
+    overflow: hidden;
+
+}
+.side-bar{
+	position: fixed;
+	width: 220px;
+	height: 100%;
+	z-index: 1000;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+
+	-webkit-transform: rotate(90deg);
+	transform:rotate(90deg);
+	background-color: #191918;
+	-webkit-transform-origin: left top;
+	transform-origin: left top;
+}
+.side-bar-show{
+	transform:rotate(0);
+	-webkit-transform:rotate(0);
+}
+.sidebar-nav-move{
+	transform: translateX(230px);
+	-webkit-transform: translateX(230px);
+}
+
+p + code{
+	line-height: 45px;
+}
+code{
+	background-color: black;
+	color: white;
+	padding: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-radius: 4px;
+	line-height: 2;
+}
+span{
+	background-color: black;
+	color: lightgreen;
+	padding: 3px;
+	border-radius: 4px;
+}
+pre code{
+	background-color: white;
+	color: black;
+}
+.col p{
+	text-indent: 29px;
+}
+.develop{
+	font-size: 30px;
+
+}
+.user-cl{
+	width: 150px;
+	height: 150px;
+	margin: 40px auto;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.user-cl img{
+	width: 100%;
+	height: 100%;
+}
+.user-cl + div{
+	width: 100%;
+	color: white;
+	/*text-align: center;*/
+}
+.left-ul{
+	width: 100%;
+}
+.left-ul li{
+	padding-left: 40px;
+	height: 35px;
+	font-size: 18px;
+	line-height: 2;
+	border-bottom: 1px solid rgba(50,50,50,0.4);
+}
+.left-ul li:hover{
+	border-left: 3px solid lightblue;
+	padding-left: 37px;
+	background-color: #212120;
+}
