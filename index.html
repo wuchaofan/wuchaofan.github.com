@@ -1,108 +1,110 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <meta charset='utf-8'>
-      <meta http-equiv="X-UA-Compatible" content="chrome=1">
-      <link rel="shortcut icon" href="images/blacktocat.png" type="image/x-icon"> 
-      <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-      <title>Wuchaofan</title>
-    </head>
+<head>
+	<title>凡人凡语</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/my.css">
+</head>
+<body>
+<div class="left">
+	<div>
+		<div class="user-cl">
+			<img src="images/user.png">
+		</div>
+	</div>
+	<div>
+		<ul class="left-ul">
+			<li>自制Docker</li>
+			<li>
+				<a href="study.html">随笔记录</a>
+			</li>
+			<li>2015/9/26</li>
+			<li>关于</li>
+		</ul>
+	</div>
+</div>
+<div class="right">
+	<div class="head-content">
+		<p>自制Docker</p>
+	</div>
+	<div class="content">
+		<div>
+			<p>由于Docker的大热，驱使着本人一探究竟。
+			经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
+			<ul>
+				<li>linux的chroot，指定根目录——实现存储隔离</li>
+				<li>linux内核的net namespace，利用ip命令——网络隔离</li>
+				<li>版本控制，记录每次修改——定制系统</li>
+			</ul>
+			<p>下文本人利用chroot、ip命令实习一个简易的docker，版本控制我们可以使用git。
+			我们知道可以利用chroot切换到指定的目录作为根目录。
+			</p>
+				<code>sudo chroot /path/to</code> 或者 <code>sudo chroot /path/to /bin/bash</code>
+				<p>上面两条命令作用是一样的，目的就是把 <span>/path/to</span>作为根目录，然后执行 <span>/path/to/bin/bash</span> 路径下的bash。此时 <span>/path/to</span> 与linux的根目录 <span>/</span> 一样。</p>
+				<p>
+					但是即使你在<span>/path/to</span>创建bin文件夹，并把bash (我们可以通过<code>which bash</code>查看bash的路径，一般都会在/bin下) 拷贝到 <span>/path/to/bin</span>，此时bash并不能运行。为什么呢？这就要说一个程序运行和文件系统的作用了。
+					我们知道程序的运行需要依赖动态连接库，没有这些库bash是不能够运行的。我们可以用ldd查看：
 
-    <body>
+				</p>
+				<pre><code>$ <span>ldd /bin/bash</span>
+	linux-vdso.so.1 =>  (0x00007fff1c1e0000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f78b2090000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78b1e8c000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78b1ac7000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f78b22c1000)</code>
+				</pre>
+				<p>
+					上面实在ubuntu 14.04系统中查看的信息，所以bash依赖库就在/lib和/lib64下面，那么我们就必须在<span>/path/to</span>目录下创建lib及lib64目录，并把依赖库拷贝进去。这样我们就可以使用chroot命令，效果如下：
+				</p>
+				<pre><code>$ <span>sudo chroot /path/to /bin/bash</span>
+	bash-4.3#
+	bash-4.3#
+	bash-4.3# pwd
+	/
+	bash-4.3#</code></pre>
+				<p>由于这里也用到了pwd命令，所以也要解决pwd的依赖关系。我们可以直接把系统/lib、/lib64直接拷贝到<span>/path/to/lib</span>、<span>/path/to/lib64</span>。从pwd输出我们知道此时的根目录已经变了，即 <span>/path/to</span> 作为根目录。到此就实现了文件系统的隔离。我们想要更好的开发和使用我们就需要一个相对标准的文件系统。如下样子：</p>
+				<pre><code>$ <span>ls /</span>
+	bin   dev  home        lib    lost+found  mnt  proc  run   srv  tmp  var
+	boot  etc  initrd.img  lib64  media       opt  root  sbin  sys  usr  vmlinuz
+				</code></pre>
+				<p>当然我们并不需要所有的这些文件夹及其里面的文件，比如仅仅想跑python的程序，那么我们可以对其裁剪，满足Python及程序的依赖就可以了。当然后续的PATH、SP1等环境变量可能也许设置。</p>
+				<p>
+					这仅仅是对文件系统的隔离，如果要让程序跑在像是独立的系统里，我们还需要网络隔离。这就需要强大的ip命令。
 
-     	<div id="header">
-  	    <div class="container">
-          <div class="hstyle1">
-  	        <h1>Recorder</h1>
-  	        <h2>Home page</h2>
-          </div>
-          <div class="hstyle2">
-            <ul>
-    	  		  <li class="listyle">
-    		          <a href="https://github.com/915546302" target="_blank">Github</a>
-    	        </li>
-    	        <li class="listyle">
-    	          <a href="http://www.cnblogs.com/wuchaofan/" target="_blank">Blog</a>
-    	        </li>
-            </ul> 
-          </div> 
-          <div class="clear"></div>
-  	    </div>
-  	</div>
-   
-    <div class="mainw">
-      <div class="pdiv">
-        <a href="/b/algorithm.html" target="_blank">
-        <h1>算法记录</h1></a>
-        <p class="time">2015/3/3</p>
-        <p class="pstyle">学习记录算法及用python实现。</p>
-      </div>
+				</p>
+				<p class="develop">待续...</p>
+		</div>
+	</div>
 
-      <div class="pdiv">
-        <a href="/b/sublimeText.html" target="_blank">
-        <h1>Sublime Text记录</h1></a>
-        <p class="time">2014/8/1</p>
-        <p class="pstyle">记录sublime text一些优秀的功能，和感触。</p>
-      </div>
-      <div class="pdiv">
-        <a href="/b/pypy.html" target="_blank">
-        <h1>pypy部署python项目</h1></a>
-        <p class="time">2014/7/11</p>
-        <p class="pstyle">使用pypy部署flask或者django项目，及更加容易的办法。</p>
-      </div>
-      <div class="pdiv">
-        <a href="./b/news.html" target="_blank">
-        <h1>News</h1></a>
-        <p class="time">2014/2/11</p>
-        <p class="pstyle">news colletion.</p>
-      </div>
-      <div class="pdiv">
-        <a href="./blogsource/viewcode.html" target="_blank">
-        <h1>Viewcode</h1></a>
-        <p class="time">2014/2/9</p>
-        <p class="pstyle">A server in order to view code.Make use of django.</p>
-      </div>
-      <div class="pdiv">
-        <a href="./blogsource/code2html.html" target="_blank">
-        <h1>Code2html</h1></a>
-        <p class="time">2014/2/1</p>
-        <p class="pstyle">Convert code to html.</p>
-      </div>
-      <div class="pdiv">
-        <a href="./blogsource/webapp/qrcode-maker.html" target="_blank">
-        <h1>Qrcode Maker</h1></a>
-        <p class="time">2014/1/20</p>
-        <p class="pstyle">A simple chrome extension.</p>
-      </div>
-      <div class="pdiv">
-        <a href="./blogsource/python/Advance.html" target="_blank">
-        <h1>Ipython notebook</h1></a>
-        <p class="time">2013/12/10</p>
-        <p class="pstyle">Intro and recommend ipython notebook.</p>
-      </div>
-      <div class="pdiv">
-        <a href="http://www.cnblogs.com/wuchaofan/category/463132.html" target="_blank"><h1>Share Python</h1></a>
-        <p class="time">2013/11/26 and before</p>
-        <p class="pstyle">Record some python projects,and share it with someone who is intersted.</p>
-      </div>
-      <div class="pdiv">
-        <a href="http://www.cnblogs.com/wuchaofan/category/463131.html" target="_blank"><h1>About Linux</h1></a>
-        <p class="time">2013/11/19 and before</p>
-        <p class="pstyle">Recored some intersting things.</p>
-      </div>
-      <div class="pdiv">
-        <a href="http://www.cnblogs.com/wuchaofan/category/463131.html" target="_blank"><h1>C/C++</h1></a>
-        <p class="time">2013/10/19 and before</p>
-        <p class="pstyle">About c and c++.</p>
-      </div>
-      <div id="divfoot">
-        <footer id="foot">
-          wuchaofan Email:915546302@163.com<br/>
-          Copyright ©2014
-        </footer>
-      </div>
-      
-    </div>
-    
-  </body>
+</div>
+<div style="clear: both;"></div>
+<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// $('.left').mouseout(function(){
+		// 	$('.left').addClass('left-min');
+		// 	$('.right').addClass('right-max');
+		// });
+		// $('.left').mouseover(function(){
+		// 	$('.left').removeClass('left-min');
+		// 	$('.right').removeClass('right-max');
+		// });
+		$(window).scroll(function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			var top = $(window).scrollTop();
+			console.log(top);
+			var $hc = $('.head-content');
+			var he = $hc.height()
+			//if(top<=90 && top>=0){
+				$hc.css({transform: 'rotateX('+top*0.1+'deg)'});
+				var heoffset =  Math.sin(2*Math.PI/360*top*0.1)*he;
+				//console.log(heoffset)
+				$('.content').css({transform: 'translateY(-'+(top*0.1+heoffset)+'px)'});
+			//}
+
+		});
+
+	});
+</script>
+</body>
 </html>
