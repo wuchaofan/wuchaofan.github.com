@@ -1,5 +1,6 @@
 html {
 	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+	font-size: 18px;
 }
 .parallax-container {
 	height: 400px;
@@ -124,4 +125,17 @@ pre code{
 	border-left: 3px solid lightblue;
 	padding-left: 37px;
 	background-color: #212120;
+}
+.p-title{
+	text-align: center;
+	font-size: 40px;
+	margin-top: 220px;
+	color: white;
+	text-shadow: 0 0 3px black;
+}
+.container ul{
+	padding-left: 40px;
+}
+.container li{
+	list-style-type: circle;
 }

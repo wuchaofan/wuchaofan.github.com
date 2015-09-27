@@ -33,19 +33,20 @@
 </div>
 <div class="home">
   <div class="parallax-container">
-      <div class="parallax"><img src="images/d3.jpg"></div>
+    <div class="parallax"><img src="images/d3.jpg"></div>
+  	<p class="p-title">自制Docker</p>>
   </div>
   <div class="container">
   	<div class="row">
   		<div class="col s12 m12 l12">
-			<p>由于Docker的大热，驱使着本人一探究竟。
-			经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
+  		<p>由于Docker的大热，驱使着本人也随波逐流的学习一番。本篇更准确的来说是模仿docker做一个容器。如果你了解LXC或者制作过 <a href="http://www.linuxfromscratch.org/lfs/view/stable/index.html" target="_blank">LFS</a>
+			 经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
 			<ul>
 				<li>linux的chroot，指定根目录——实现存储隔离</li>
 				<li>linux内核的net namespace，利用ip命令——网络隔离</li>
 				<li>版本控制，记录每次修改——定制系统</li>
 			</ul>
-			<p>下文本人利用chroot、ip命令实习一个简易的docker，版本控制我们可以使用git。
+			<p>下文本人利用chroot、ip命令实现一个简易的docker，版本控制我们可以使用git。
 			我们知道可以利用chroot切换到指定的目录作为根目录。
 			</p>
 				<code>sudo chroot /path/to</code> 或者 <code>sudo chroot /path/to /bin/bash</code>
