@@ -26,6 +26,7 @@ html {
     border: 0;
     font-size: 28px;
     border-radius: 9px;
+    opacity: 0.7;
     /*left: 10px;*/
     transform: translateX(10px);
     -webkit-transform: translateX(10px);
