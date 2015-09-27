@@ -33,7 +33,7 @@ html {
 }
 .side-nav-button{
 	z-index: 102;
-    top: 5px;
+    bottom: 80px;
     position: fixed;
 }
 .sidebar-nav img{
@@ -51,15 +51,16 @@ html {
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 
-	-webkit-transform: rotate(90deg);
-	transform:rotate(90deg);
+	-webkit-transform: translateX(-220px);
+	transform: translateX(-220px);
 	background-color: #191918;
 	-webkit-transform-origin: left top;
 	transform-origin: left top;
 }
 .side-bar-show{
-	transform:rotate(0);
-	-webkit-transform:rotate(0);
+	transform: translateX(0);
+	/*transform:rotate(0);*/
+	-webkit-transform: translateX(0);
 }
 .sidebar-nav-move{
 	transform: translateX(230px);
@@ -139,4 +140,8 @@ pre code{
 }
 .container li{
 	list-style-type: circle;
+}
+.section-title{
+	color: blue;
+	font-weight: bold;
 }
