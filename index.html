@@ -40,7 +40,7 @@
   	<div class="row">
   		<div class="col s12 m12 l12">
   		<p class="section-title">1、独立的文件系统【文件系统隔离】</p>
-  		<p>由于Docker的大热，驱使着本人也随波逐流的学习一番。本篇更准确的来说是模仿docker做一个容器。如果你了解LXC或者制作过 <a href="http://www.linuxfromscratch.org/lfs/view/stable/index.html" target="_blank">LFS</a>，实现一个容器就容易多了。经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
+  		<p>由于Docker的大热，驱使着本人也随波逐流的学习一番。本篇更准确的来说是模仿docker做一个容器。如果你了解LXC或者制作过 <a href="http://www.linuxfromscratch.org/lfs/view/stable/index.html" target="_blank">LFS</a>，实现一个容器就容易多了。经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，但是进程并没有隔离，容器中的进程一样是宿主机进程。docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
 			<ul>
 				<li>linux的chroot，指定根目录——实现存储隔离</li>
 				<li>linux内核的net namespace，利用ip命令——网络隔离</li>
@@ -72,12 +72,12 @@
 	bash-4.3# pwd
 	/
 	bash-4.3#</code></pre>
-				<p>由于这里也用到了pwd命令，所以也要解决pwd的依赖关系。我们可以直接把系统/lib、/lib64直接拷贝到<span>/path/to/lib</span>、<span>/path/to/lib64</span>。从pwd输出我们知道此时的根目录已经变了，即 <span>/path/to</span> 作为根目录。到此就实现了文件系统的隔离。我们想要更好的开发和使用我们就需要一个相对标准的文件系统。如下样子：</p>
+				<p>由于这里也用到了pwd命令，所以也要解决pwd的依赖关系。我们可以直接把系统/lib、/lib64直接拷贝到<span>/path/to/lib</span>、<span>/path/to/lib64</span>。从pwd输出我们知道此时的根目录已经变了，即 <span>/path/to</span> 作为根目录。到此就实现了文件系统的隔离。我们想要更好的开发和使用我们就需要一个相对标准的文件系统，因为标准的文件系统中的/etc、/usr、/proc等对于程序、配置是必要的。如下样子：</p>
 				<pre><code>$ <span>ls /</span>
 	bin   dev  home        lib    lost+found  mnt  proc  run   srv  tmp  var
 	boot  etc  initrd.img  lib64  media       opt  root  sbin  sys  usr  vmlinuz
 				</code></pre>
-				<p>当然我们并不需要所有的这些文件夹及其里面的文件，比如仅仅想跑python的程序，那么我们可以对其裁剪，满足Python及程序的依赖就可以了。当然后续的PATH、SP1等环境变量可能也许设置。</p>
+				<p>当然我们并不需要所有的这些文件夹及其里面的文件，比如仅仅想跑python的程序，那么我们可以对其裁剪，满足Python及程序的依赖就可以了。当然后续的PATH、SP1等环境变量可能也需要设置。</p>
 				<p>
 					这仅仅是对文件系统的隔离，如果要让程序跑在像是独立的系统里，我们还需要网络隔离。这就需要强大的ip命令。
 
