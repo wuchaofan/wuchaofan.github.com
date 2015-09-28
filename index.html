@@ -94,6 +94,9 @@
 			<p>但是此时隔离网络并不能与宿主机想虚拟机与物理机一样之间通信，这就需要创建网络端口，这里肯定添加的是虚拟网卡了。<span>ip link add vetha type veth peer name vethb</span>,此时创建了两个虚拟网卡（<span>ip a</span>可以查看到），这两个接口又有些不同，vetha、vethb此时可以想象成通过网线连接的两个端口。我们把vethb添加进mytest空间中，在配置号ip等信息后，mytest空间网络就可以与宿主机网络通信了。<span>ip link set vethb netns mytest</span> 没错，就是把vethb添加进mytest。通过<span>ip netns exec mytest ip a</span>可以看到已经把vethb添加进mytest了，好了，下一步就是给vetha、vethb配置ip、子网掩码。<span>ip addr add 10.2.2.1/24 dev vetha</span>，使能vetha：<span>ip link set dev vetha up</span>。
 			设置mytest中vethb的ip信息：<span>ip netns exec mytest ip addr add 10.2.2.3/24 dev vethb</span>，<span>ip netns exec mytest ip link set dev vethb up</span>。当然配置vethb的信息可以切换到mytest的shell环境中配置。此时在主机或者mytest shell命令行中ping vetha\vethb就能互相ping通了。在mytest命令行执行<span>python -m SimpleHTTPServer</span>会运行一个简单的web服务，可以尝试访问下。如果ping不通可能有路由有关。可以配置下<span>ip netns exec mytest ip route add default via 10.2.2.1</span>或者<span>ip netns exec mytest ip r add  10.2.2.0/24 dev vethb</span>后再ping试试。外部网络想要访问mytest网络空间，可以在宿主机做端口转发，这与vm一样。
 			</p>
+			<div class="peitu">
+				<img src="images/container.png">
+			</div>
 			<p>到此网络隔离就是这些，上面有说过此时文件系统是和宿主机是公用的，程序自然不必说也是在磁盘同一个文件，所以这就需要第一部分的文件系统隔离了。</p>
   		</div>
   	</div>
