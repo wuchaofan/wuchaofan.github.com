@@ -22,12 +22,12 @@
 	</div>
 	<div>
 		<ul class="left-ul">
-			<li>自制Docker</li>
+			<li><a href="#">自制Docker</a></li>
 			<li>
-				<a href="study.html">随笔记录</a>
+				<a href="study.html">随笔记录></a>
 			</li>
-			<li>2015/9/26</li>
-			<li>关于</li>
+			<li><a href="#">2015/9/26</a></li>
+			<li><a href="#">关于</a></li>
 		</ul>
 	</div>
 </div>
@@ -111,9 +111,14 @@
   <script type="text/javascript">
   $(function(){
   	$('.parallax').parallax();
-  	$(".button-collapse").sideNav();
+  	//$(".button-collapse").sideNav();
+  	$(document).click(function(){
+  		$('.sidebar-nav').removeClass('sidebar-nav-move');
+	  	$('.side-bar').removeClass('side-bar-show');
 
-  	$('.sidebar-nav').click(function(){
+  	})
+  	$('.sidebar-nav').click(function(event){
+  		event.stopPropagation();
   		if($(this).hasClass('sidebar-nav-move')){
 	  		$(this).removeClass('sidebar-nav-move');
 	  		$('.side-bar').removeClass('side-bar-show');

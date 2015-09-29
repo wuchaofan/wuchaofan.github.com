@@ -122,7 +122,7 @@ pre code{
 	width: 100%;
 }
 .left-ul li{
-	padding-left: 40px;
+	/*padding-left: 40px;*/
 	height: 35px;
 	font-size: 18px;
 	line-height: 2;
@@ -130,8 +130,16 @@ pre code{
 }
 .left-ul li:hover{
 	border-left: 3px solid lightblue;
-	padding-left: 37px;
+	/*padding-left: 37px;*/
 	background-color: #212120;
+}
+.left-ul a{
+	display: inline-block;
+	width: 100%;
+	padding-left: 40px;
+}
+.left-ul a:hover{
+	padding-left: 37px;
 }
 .p-title{
 	text-align: center;
