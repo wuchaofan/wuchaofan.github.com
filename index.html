@@ -120,6 +120,7 @@
   	})
   	$('.sidebar-nav').click(function(event){
   		event.stopPropagation();
+  		$('body, html').animate({scrollTop: 0},'300');
   		if($(this).hasClass('sidebar-nav-move')){
 	  		$(this).removeClass('sidebar-nav-move');
 	  		$('.side-bar').removeClass('side-bar-show');
