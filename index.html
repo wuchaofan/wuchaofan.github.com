@@ -23,7 +23,11 @@
 	</div>
 	<div>
 		<ul class="left-ul">
-			<li><a href="#">自制Docker</a></li>
+			<li><a href="#" style="color: gray;">自制Docker</a></li>
+			<li>
+				<a href="b/filesystem.html">自制文件系统</a>
+			</li>
+
 			<li>
 				<a href="study.html">随笔记录></a>
 			</li>
@@ -122,7 +126,7 @@
   	})
   	$('.sidebar-nav').click(function(event){
   		event.stopPropagation();
-  		$('body, html').animate({scrollTop: 0},'300');
+  		//$('body, html').animate({scrollTop: 0},100);
   		if($(this).hasClass('sidebar-nav-move')){
 	  		$(this).removeClass('sidebar-nav-move');
 	  		$('.side-bar').removeClass('side-bar-show');
