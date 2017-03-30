@@ -72,8 +72,9 @@
       	</div>
 	  </div>
       <div class="col s4 m4 l4">
-      	<div class="tap">
-      		<p class="title">Writing...</p>
+				<div class="tap tap-tmall">
+      		<p class="title">商城</p>
+      		<p class="desc">使用vue商城demo，案例仿天猫(最好在手机上访问</p>
       	</div>
       </div>
 <!--       <div class="col s4 m4 l4">
@@ -89,6 +90,11 @@
 			$(this).css({'transform': 'scale(0)'});
 			location.href='/demo/ionicDemo1/index.html';
 		})
+		$('.tap-tmall').click(function(){
+			$(this).css({'transform': 'scale(0)'});
+			location.href='/demo/tmall/index.html';
+		})
+
 		var height = $('.tap').width()*1.1;
 		$('.tap').css({height: height+'px'});
 	})
