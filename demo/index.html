@@ -74,7 +74,13 @@
       <div class="col s4 m4 l4">
 				<div class="tap tap-tmall">
       		<p class="title">商城</p>
-      		<p class="desc">使用vue商城demo，案例仿天猫(最好在手机上访问</p>
+      		<p class="desc">使用vue商城demo，案例仿天猫(最好在手机上访问)</p>
+      	</div>
+      </div>
+	  <div class="col s4 m4 l4">
+				<div class="tap tap-exist">
+      		<p class="title">存在</p>
+      		<p class="desc">使用vue demo，案例仿存在app(最好在手机上访问)</p>
       	</div>
       </div>
 <!--       <div class="col s4 m4 l4">
@@ -93,6 +99,10 @@
 		$('.tap-tmall').click(function(){
 			$(this).css({'transform': 'scale(0)'});
 			location.href='/demo/tmall/index.html';
+		})
+		$('.tap-exist').click(function(){
+			$(this).css({'transform': 'scale(0)'});
+			location.href='/demo/exist/index.html';
 		})
 
 		var height = $('.tap').width()*1.1;
