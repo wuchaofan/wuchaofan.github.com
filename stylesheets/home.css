@@ -18,6 +18,7 @@ body{
 	width: 100%;
 	transition: all 0.5s;
     -webkit-transition: all 0.5s;
+	-ms-transition: all 0.5s;
 }
 .sidebar-nav{
 	position: absolute;
@@ -33,7 +34,9 @@ body{
     /*left: 10px;*/
     transform: translateX(10px);
     -webkit-transform: translateX(10px);
+	-ms-transform: translateX(10px);
     -webkit-transition: all 0.3s;
+	-ms-transition: all 0.3s;
 	transition: all 0.3s;
 }
 .side-nav-button{
@@ -55,21 +58,25 @@ body{
 	z-index: 1000;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
-
+	-ms-transition: all 0.5s;
 	-webkit-transform: translateX(-220px);
+	-ms-transform: translateX(-220px);
 	transform: translateX(-220px);
 	background-color: #191918;
 	-webkit-transform-origin: left top;
+	-ms-transform-origin: left top;
 	transform-origin: left top;
 }
 .side-bar-show{
 	transform: translateX(0);
 	/*transform:rotate(0);*/
 	-webkit-transform: translateX(0);
+	-ms-transform: translateX(0);
 }
 .sidebar-nav-move{
 	transform: translateX(230px);
 	-webkit-transform: translateX(230px);
+	-ms-transform: translateX(230px);
 }
 
 p + code{
