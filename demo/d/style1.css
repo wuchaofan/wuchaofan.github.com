@@ -55,6 +55,10 @@ body{
   overflow: hidden;
   transition: all 0.4s;
 }
+.container{
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
 
 .box{
   -webkit-box-flex: 1;
