@@ -11,6 +11,17 @@
       if (isIE) {
         location.href="/demo/d/ieindex.html";
       }
+
+      function detectmob() {
+        if(window.innerWidth <= 800) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      
+
+      
     </script>
   </head>
   <body>
@@ -70,9 +81,9 @@
       	  </a>
         </div>
         <div class="box" id="safari">
-          <a class="box-a" href="#">
-      		  <p class="title">...</p>
-      		  <p class="desc"> </p>
+          <a class="box-a" href="/demo/newb/">
+      		  <p class="title">新模板</p>
+      		  <p class="desc">开发中...</p>
       	  </a>
         </div>
         <div class="box" id="opera">
@@ -95,7 +106,13 @@
         var main = document.getElementsByClassName('main')[0];
         main.className = 'main'
       });
-
+      if(detectmob()){
+        var body = document.getElementsByTagName('body')[0];
+        body.className = "c-body"
+      }else{
+        var body = document.getElementsByTagName('body')[0];
+        body.className = ""
+      }
     </script>
   </body>
 </html>

@@ -190,3 +190,13 @@ body{
 .box-a .title{
   font-size: 33px;
 }
+.c-body .container{
+  flex-direction: column;
+  margin-top: 50px;
+}
+.c-body .box-a{
+  flex-direction: row;
+}
+.c-body .desc{
+  margin-left: 20px;
+}
