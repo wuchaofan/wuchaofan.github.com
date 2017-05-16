@@ -1,0 +1,11 @@
+deploy:
+   provider: pages
+   skip_cleanup: true
+   github_token: 9a04939f48f1e15413f421d4013facd2fa968b33
+   on:
+     branch: master
+
+language: node_js
+
+node_js:  
+  - "7"
