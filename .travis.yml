@@ -1,14 +1,11 @@
 deploy:
-   provider: pages
-   skip_cleanup: true
-   on:
-     branch: master
-
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN
+  on:
+    branch: master
+    
 language: node_js
 
-node_js:  
-  - "7"
-
-after_script:
-  - git commit -m "Update"
-  - git push --force --quiet "https://${GH_TOKEN}@github.com/wuchaofan/wuchaofan.github.com.git" master:master
+node_js:
+  - '7'
