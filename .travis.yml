@@ -9,9 +9,6 @@ language: node_js
 node_js:  
   - "7"
 
-before_script:
-  - composer config github-oauth.github.com ${GH_TOKEN}
-
-
-install:
-  - composer install --dev --prefer-dist
+after_script:
+  - git commit -m "Update"
+  - git push --force --quiet "https://${GH_TOKEN}@github.com/wuchaofan/wuchaofan.github.com.git" master:master
