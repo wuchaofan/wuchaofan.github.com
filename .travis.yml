@@ -1,7 +1,7 @@
 deploy:
    provider: pages
    skip_cleanup: true
-   github_token: 9a04939f48f1e15413f421d4013facd2fa968b33
+   github_token: ''
    on:
      branch: master
 
