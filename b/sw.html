@@ -18,7 +18,7 @@
   </style></head><body id="preview">
 <h1><a id="Service_Worker_0"></a>Service Worker</h1>
 <h2><a id="service_worker_6"></a>什么是service worker</h2>
-<p>SW是一个脚本，在浏览器后台运行，与网页分开。 现在已经包括<a href="https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web">推送通知</a>和后台同步等功能。 在未来，SW将会支持周期性同步或地理位置等其他任务。 本教程中讨论的核心功能是拦截和处理网络请求的能力，包括以编程方式管理响应缓存。</p>
+<p>SW是一个脚本，在浏览器后台运行，与网页隔离。 现在已经包括<a href="https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web">推送通知</a>和后台同步等功能。 在未来，SW将会支持周期性同步或地理位置等其他任务。 本教程中讨论的核心功能是拦截和处理网络请求的能力，包括以编程方式管理响应缓存。</p>
 <h4><a id="SW_8"></a>关于SW注意事项：</h4>
 <ol>
 <li>它是一个<a href="https://www.html5rocks.com/en/tutorials/workers/basics/">JavaScript worker</a>，所以不能直接访问DOM。 SW可以通过响应通过<a href="https://html.spec.whatwg.org/multipage/workers.html#dom-worker-postmessage">postMessage</a>接口发送的消息与其控制的页面进行通信，并且这些页面可以在需要时操作DOM；</li>
