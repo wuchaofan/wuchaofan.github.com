@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>自制Docker</title>
+	<link rel="shortcut icon" href="images/loo.png">
+	<link rel="stylesheet" type="text/css" href="stylesheets/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+
+</head>
+<body>
+<div class="side-nav-button">
+	<a href="#" class="sidebar-nav">
+		<img src="/images/bar.png">
+	</a>
+</div>
+<div class="side-bar">
+	<div class="user-cl">
+		<img src="/images/user.png">
+	</div>
+	<div>
+		<ul class="left-ul">
+			<li>
+				<a href="/b/serviceworker.html">Service Worker</a>
+			</li>
+			<li><a href="/docker.html" style="color: white;">自制Docker</a></li>
+			<li>
+				<a href="/b/nativeweb.html">动态编码</a>
+			</li>
+			<li>
+				<a href="/b/filesystem.html">自制文件系统</a>
+			</li>
+			<li>
+				<a href="/study.html">随笔记录></a>
+			</li>
+			<li><a href="/demo/d/index.html">H5 Demo</a></li>
+			<li><a href="/g/bridge/index.html">小游戏</a></li>
+			<li><a href="#">关于</a></li>
+		</ul>
+	</div>
+</div>
+<div class="home">
+  <div class="parallax-container">
+    <div class="parallax"><img src="/images/d3.jpg"></div>
+  	<p class="p-title">自制Docker</p>
+  	<p class="uptime">2015/9/26</p>
+  </div>
+  <div class="container">
+  	<div class="row">
+  		<div class="col s12 m12 l12">
+  		<p class="section-title">1、独立的文件系统【文件系统隔离】</p>
+  		<p>由于Docker的大热，驱使着本人也随波逐流的学习一番。本篇更准确的来说是模仿docker做一个容器。如果你了解LXC或者制作过 <a href="http://www.linuxfromscratch.org/lfs/view/stable/index.html" target="_blank">LFS</a>，实现一个容器就容易多了。经过一番研究，我们知道docker是容器，轻量级的vm，事实上它是在一个操作系统上实现的网络隔离、存储隔离，但是进程并没有隔离，容器中的进程一样是宿主机进程。docker主要用到了三方面的技术。我们可以通过一下三点对应，并用这三点实现docker</p>
+			<ul>
+				<li>linux的chroot，指定根目录——实现存储隔离</li>
+				<li>linux内核的net namespace，利用ip命令——网络隔离</li>
+				<li>版本控制，记录每次修改——定制系统</li>
+			</ul>
+			<p>下文本人利用chroot、ip命令实现一个简易的docker，版本控制我们可以使用git。
+			我们知道可以利用chroot切换到指定的目录作为根目录。
+			</p>
+				<code>sudo chroot /path/to</code> 或者 <code>sudo chroot /path/to /bin/bash</code>
+				<p>上面两条命令作用是一样的，目的就是把 <span>/path/to</span>作为根目录，然后执行 <span>/path/to/bin/bash</span> 路径下的bash。此时 <span>/path/to</span> 与linux的根目录 <span>/</span> 一样。</p>
+				<p>
+					但是即使你在<span>/path/to</span>创建bin文件夹，并把bash (我们可以通过<code>which bash</code>查看bash的路径，一般都会在/bin下) 拷贝到 <span>/path/to/bin</span>，此时bash并不能运行。为什么呢？这就要说一个程序运行和文件系统的作用了。
+					我们知道程序的运行需要依赖动态连接库，没有这些库bash是不能够运行的。我们可以用ldd查看：
+
+				</p>
+				<pre><code>$ <span>ldd /bin/bash</span>
+	linux-vdso.so.1 =>  (0x00007fff1c1e0000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f78b2090000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78b1e8c000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78b1ac7000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f78b22c1000)</code>
+				</pre>
+				<p>
+					上面实在ubuntu 14.04系统中查看的信息，所以bash依赖库就在/lib和/lib64下面，那么我们就必须在<span>/path/to</span>目录下创建lib及lib64目录，并把依赖库拷贝进去。这样我们就可以使用chroot命令，效果如下：
+				</p>
+				<pre><code>$ <span>sudo chroot /path/to /bin/bash</span>
+	bash-4.3#
+	bash-4.3#
+	bash-4.3# pwd
+	/
+	bash-4.3#</code></pre>
+				<p>由于这里也用到了pwd命令，所以也要解决pwd的依赖关系。我们可以直接把系统/lib、/lib64直接拷贝到<span>/path/to/lib</span>、<span>/path/to/lib64</span>。从pwd输出我们知道此时的根目录已经变了，即 <span>/path/to</span> 作为根目录。到此就实现了文件系统的隔离。我们想要更好的开发和使用我们就需要一个相对标准的文件系统，因为标准的文件系统中的/etc、/usr、/proc等对于程序、配置是必要的。如下样子：</p>
+				<pre><code>$ <span>ls /</span>
+	bin   dev  home        lib    lost+found  mnt  proc  run   srv  tmp  var
+	boot  etc  initrd.img  lib64  media       opt  root  sbin  sys  usr  vmlinuz
+				</code></pre>
+				<p>文件系统可以通过安装的系统获得，或者直接使用docker的文件镜像，在/var/lib/docker下。当然我们并不需要所有的这些文件夹及其里面的文件，比如仅仅想跑python的程序，那么我们可以对其裁剪，满足Python及程序的依赖就可以了。当然后续的PATH、SP1等环境变量可能也需要设置。</p>
+				<p>
+					这仅仅是对文件系统的隔离，如果要让程序跑在像是独立的系统里，我们还需要网络隔离。这就需要强大的ip命令。
+
+				</p>
+		</div>
+
+  	</div>
+  	<div class="row">
+  		<div class="col s12 m12 l12">
+			<p class="section-title">2、独立的网络【网络隔离】</p>
+			<p>ip命令是个工具集，配置网络、路由等都可以使用ip。这里就不做过得的讲解了，毕竟功能太多，本人这里只涉及和网络隔离相关的部分。上面提及network namespace，我们需要利用<span>ip netns mytest</span>创建一个指定名字的网络空间，通过mytest这个名字我们才能对此空间中的程序操作，当然在此命名空间中操作的程序都与宿主机网络隔离的，这里mytest是本人随意起的名字。我们可以通过<span>ip netns list</span>查看所创建的网络命名空间列表，另外要说的是本篇许多操作都是需要root权限的，ubuntu下默认sudo切换，centos默认su，如果操作失败可能就是权限问题，以后不再赘述。
+			</p>
+			<p>如果想删除创建的net namespace，使用 <span>ip netns delete mytest</span>。此时我们已经可以对mytest网络空间进行操作了，使用 <span>ip netns exec mytest bash</span>，此命令会执行mytest空间的bash从而切换进shell环境，此时的bash从网络方面来说，它与宿主机的网络隔离了。但是他们公用的同一个文件系统。这里bash可以换成其他命令比如<span>ip netns exec mytest ip a</span> 会列出所有的网络接口。</p>
+			<p>但是此时隔离网络并不能与宿主机想虚拟机与物理机一样之间通信，这就需要创建网络端口，这里肯定添加的是虚拟网卡了。<span>ip link add vetha type veth peer name vethb</span>,此时创建了两个虚拟网卡（<span>ip a</span>可以查看到），这两个接口又有些不同，vetha、vethb此时可以想象成通过网线连接的两个端口。我们把vethb添加进mytest空间中，在配置ip等信息后，mytest空间网络就可以与宿主机网络通信了。<span>ip link set vethb netns mytest</span> 没错，就是把vethb添加进mytest。通过<span>ip netns exec mytest ip a</span>可以看到已经把vethb添加进mytest了，好了，下一步就是给vetha、vethb配置ip、子网掩码。<span>ip addr add 10.2.2.1/24 dev vetha</span>，使能vetha：<span>ip link set dev vetha up</span>。
+			设置mytest中vethb的ip信息：<span>ip netns exec mytest ip addr add 10.2.2.3/24 dev vethb</span>，<span>ip netns exec mytest ip link set dev vethb up</span>。当然配置vethb的信息可以切换到mytest的shell环境中配置。此时在主机或者mytest shell命令行中ping vetha\vethb就能互相ping通了。在mytest命令行执行<span>python -m SimpleHTTPServer</span>会运行一个简单的web服务，可以尝试访问下。如果ping不通可能有路由有关。可以配置下<span>ip netns exec mytest ip route add default via 10.2.2.1</span>或者<span>ip netns exec mytest ip r add  10.2.2.0/24 dev vethb</span>后再ping试试。外部网络想要访问mytest网络空间，可以在宿主机做端口转发，这与vm一样。
+			</p>
+			<div class="peitu">
+				<img src="images/cc.png">
+			</div>
+			<p>到此网络隔离就是这些，上面有说过此时文件系统是和宿主机是公用的，程序自然不必说也是在磁盘同一个文件，所以这就需要第一部分的文件系统隔离了。两者结合实现简易的容器。</p>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col s12 m12 l12">
+  			<p class="section-title">总结</p>
+  			<p>对于记录我们每次对镜像的修改，定制自己的系统，我们可以使用git，当然使用配置文件（如Dockfile）来操作构建镜像是个不错的选择。但是本人并没有对docker的版本控制做太多的了解，有兴趣的话可以对/var/lib/docker下的信息研究一下。容器的实现需要操作系统底层的支持，由于linux这些特性使我们在同一个运行的系统中能够隔离文件系统和网络系统，从而实现的一个轻量级的VM。</p>
+  		</div>
+  	</div>
+  </div>
+</div>
+	<script type="text/javascript" src="javascripts/json2.js"></script>
+	<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
+	<script type="text/javascript" src="javascripts/materialize.min.js"></script>
+
+  <script type="text/javascript">
+  $(function(){
+  	$('.parallax').parallax();
+  	//$(".button-collapse").sideNav();
+  	$(document).click(function(){
+  		$('.sidebar-nav').removeClass('sidebar-nav-move');
+	  	$('.side-bar').removeClass('side-bar-show');
+
+  	})
+  	$('.sidebar-nav').click(function(event){
+  		event.stopPropagation();
+  		//$('body, html').animate({scrollTop: 0},100);
+  		if($(this).hasClass('sidebar-nav-move')){
+	  		$(this).removeClass('sidebar-nav-move');
+	  		$('.side-bar').removeClass('side-bar-show');
+
+  		}else{
+	  		$(this).addClass('sidebar-nav-move');
+	  		$('.side-bar').addClass('side-bar-show');
+	  	}
+  		// $('.home').addClass('home-side');
+  	})
+  })
+  </script>
+</body>
+</html>

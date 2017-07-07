@@ -10,8 +10,19 @@
 	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/home.css">
 	<style>
+	html,body, .home{
+		height: 100%;
+	}
 	body{
-		background-image: url(/images/food.png);
+		overflow: hidden;
+	}
+	@media only screen and (min-width: 1400px) {
+		.side-bar{
+				-webkit-transform: translateX(0);
+				-ms-transform: translateX(0);
+				transform: translateX(0);
+		}
+
 	}
 	</style>
 </head>
@@ -28,12 +39,12 @@
 	<div>
 		<ul class="left-ul">
       <li>
-				<a href="/b/sw.html" style="color: white;">Service Worker</a>
+				<a href="/b/serviceworker.html" style="color: white;">Service Worker</a>
 			</li>
       <li>
 				<a href="/b/nativeweb.html">动态编码</a>
 			</li>
-			<li><a href="/">自制Docker</a></li>
+			<li><a href="/docker.html">自制Docker</a></li>
 			<li>
 				<a href="/b/filesystem.html">自制文件系统</a>
 			</li>
