@@ -12,3 +12,5 @@
 /test/sample
 !/test/sample/bower.json
 /npm-shrinkwrap.json
+!/bower_components/webcomponentsjs/webcomponents-loader.js
+!/bower_components/polymer/polymer.html
