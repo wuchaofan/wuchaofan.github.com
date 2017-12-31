@@ -8,42 +8,18 @@
 	<link rel="shortcut icon" href="images/loo.png">
 	<link rel="stylesheet" type="text/css" href="stylesheets/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+	<script type="text/javascript" src="javascripts/json2.js"></script>
+	<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
+	<script type="text/javascript" src="javascripts/materialize.min.js"></script>
+
+	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="/bower_components/polymer/polymer.html">
+	<link rel="import" href="/polymer_components/menu.html">
 
 </head>
 <body>
-<div class="side-nav-button">
-	<a href="#" class="sidebar-nav">
-		<img src="/images/bar.png">
-	</a>
-</div>
-<div class="side-bar">
-	<div class="user-cl">
-		<img src="/images/user.png">
-	</div>
-	<div>
-		<ul class="left-ul">
-			<li>
-				<a href="/">Service Worker</a>
-			</li>
-			<li>
-				<a href="/demo/onlyone">Onlyone admin</a>
-			</li>
-			<li><a href="/docker.html" style="color: white;">自制Docker</a></li>
-			<li>
-				<a href="/b/nativeweb.html">动态编码</a>
-			</li>
-			<li>
-				<a href="/b/filesystem.html">自制文件系统</a>
-			</li>
-			<li>
-				<a href="/study.html">随笔记录></a>
-			</li>
-			<li><a href="/demo/d/index.html">H5 Demo</a></li>
-			<li><a href="/g/bridge/index.html">小游戏</a></li>
-			<li><a href="#">关于</a></li>
-		</ul>
-	</div>
-</div>
+	<menu-element selected-tag="5"></menu-element>
+
 <div class="home">
   <div class="parallax-container">
     <div class="parallax"><img src="/images/d3.jpg"></div>
@@ -122,32 +98,10 @@
   	</div>
   </div>
 </div>
-	<script type="text/javascript" src="javascripts/json2.js"></script>
-	<script type="text/javascript" src="g/bridge/jquery.2.0.0.min.js"></script>
-	<script type="text/javascript" src="javascripts/materialize.min.js"></script>
 
   <script type="text/javascript">
   $(function(){
   	$('.parallax').parallax();
-  	//$(".button-collapse").sideNav();
-  	$(document).click(function(){
-  		$('.sidebar-nav').removeClass('sidebar-nav-move');
-	  	$('.side-bar').removeClass('side-bar-show');
-
-  	})
-  	$('.sidebar-nav').click(function(event){
-  		event.stopPropagation();
-  		//$('body, html').animate({scrollTop: 0},100);
-  		if($(this).hasClass('sidebar-nav-move')){
-	  		$(this).removeClass('sidebar-nav-move');
-	  		$('.side-bar').removeClass('side-bar-show');
-
-  		}else{
-	  		$(this).addClass('sidebar-nav-move');
-	  		$('.side-bar').addClass('side-bar-show');
-	  	}
-  		// $('.home').addClass('home-side');
-  	})
   })
   </script>
 </body>

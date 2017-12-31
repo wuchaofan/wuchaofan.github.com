@@ -4,6 +4,7 @@ html {
 }
 body{
 	overflow-x: hidden;
+	margin: 0;
 }
 .parallax-container {
 	height: 400px;

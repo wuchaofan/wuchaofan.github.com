@@ -14,39 +14,15 @@
 		background-image: url(/images/food.png);
 	}
 	</style>
+	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="/bower_components/polymer/polymer.html">
+	<link rel="import" href="/polymer_components/menu.html">
+
 </head>
 <body>
-<div class="side-nav-button">
-	<a href="#" class="sidebar-nav">
-		<img src="/images/bar.png">
-	</a>
-</div>
-<div class="side-bar">
-	<div class="user-cl">
-		<img src="/images/user.png">
-	</div>
-	<div>
-		<ul class="left-ul">
-			<li>
-				<a href="/">Service Worker</a>
-			</li>
-			<li>
-				<a href="/demo/onlyone">Onlyone admin</a>
-			</li>
-			<li><a href="/docker.html">自制Docker</a></li>
-			<li>
-				<a href="/b/filesystem.html" style="color: white;">自制文件系统</a>
-			</li>
+		<menu-element selected-tag="6"></menu-element>
 
-			<li>
-				<a href="/study.html">随笔记录></a>
-			</li>
-			<li><a href="/demo/d/index.html">H5 Demo</a></li>
-			<li><a href="/g/bridge/index.html">小游戏</a></li>
-			<li><a href="#">关于</a></li>
-		</ul>
-	</div>
-</div>
+
 <div class="home">
   <div class="parallax-container">
     <div class="parallax"><img src="/images/f2-2.jpg"></div>
@@ -80,25 +56,6 @@
   <script type="text/javascript">
   $(function(){
   	$('.parallax').parallax();
-  	//$(".button-collapse").sideNav();
-  	$(document).click(function(){
-  		$('.sidebar-nav').removeClass('sidebar-nav-move');
-	  	$('.side-bar').removeClass('side-bar-show');
-
-  	})
-  	$('.sidebar-nav').click(function(event){
-  		event.stopPropagation();
-  		//$('body, html').animate({scrollTop: 0},100);
-  		if($(this).hasClass('sidebar-nav-move')){
-	  		$(this).removeClass('sidebar-nav-move');
-	  		$('.side-bar').removeClass('side-bar-show');
-
-  		}else{
-	  		$(this).addClass('sidebar-nav-move');
-	  		$('.side-bar').addClass('side-bar-show');
-	  	}
-  		// $('.home').addClass('home-side');
-  	})
   })
   </script>
 </body>

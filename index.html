@@ -2,19 +2,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 	<title>Service Worker-翻译</title>
 	<link rel="shortcut icon" href="/images/loo.png">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/materialize.min.css">
 	<script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
 	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../stylesheets/home.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="/bower_components/polymer/polymer.html">
+	<link rel="import" href="/polymer_components/menu.html">
+
 	<style>
 	html,body, .home{
 		height: 100%;
-	}
-	body{
-		overflow: hidden;
 	}
 	iframe{
 		border-width: 0;
@@ -27,65 +28,10 @@
 	</style>
 </head>
 <body>
-<div class="side-nav-button">
-	<a href="#" class="sidebar-nav">
-		<img src="/images/bar.png">
-	</a>
-</div>
-<div class="side-bar">
-	<div class="user-cl">
-		<img src="/images/user.png">
-	</div>
-	<div>
-		<ul class="left-ul">
-			<li>
-				<a href="/" style="color: white;">Service Worker</a>
-			</li>
-			<li>
-				<a href="/demo/onlyone">Onlyone admin</a>
-			</li>
-			<li>
-				<a href="/b/nativeweb.html">动态编码</a>
-			</li>
-			<li><a href="/docker.html">自制Docker</a></li>
-			<li>
-				<a href="/b/filesystem.html">自制文件系统</a>
-			</li>
+	<menu-element selected-tag="1"></menu-element>
+	<div class="home">
+		<iframe src="/b/sw.html" width="100%" height="100%"></iframe>
 
-			<li>
-				<a href="/study.html">随笔记录></a>
-			</li>
-			<li><a href="/demo/d/index.html">H5 Demo</a></li>
-			<li><a href="/g/bridge/index.html">小游戏</a></li>
-			<li><a href="#">关于</a></li>
-		</ul>
 	</div>
-</div>
-<div class="home">
-  <iframe src="/b/sw.html" width="100%" height="100%"></iframe>
-
-</div>
-  <script type="text/javascript">
-  $(function(){
-  	$('.parallax').parallax();
-  	//$(".button-collapse").sideNav();
-  	$(document).click(function(){
-  		$('.sidebar-nav').removeClass('sidebar-nav-move');
-	  	$('.side-bar').removeClass('side-bar-show');
-  	})
-  	$('.sidebar-nav').click(function(event){
-  		event.stopPropagation();
-  		//$('body, html').animate({scrollTop: 0},100);
-  		if($(this).hasClass('sidebar-nav-move')){
-	  		$(this).removeClass('sidebar-nav-move');
-	  		$('.side-bar').removeClass('side-bar-show');
-  		}else{
-	  		$(this).addClass('sidebar-nav-move');
-	  		$('.side-bar').addClass('side-bar-show');
-	  	}
-  		// $('.home').addClass('home-side');
-  	})
-  })
-  </script>
 </body>
 </html>
