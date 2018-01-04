@@ -36,8 +36,9 @@
         }
         .side-nav-button{
           z-index: 102;
-            bottom: 80px;
-            position: fixed;
+          bottom: 80px;
+          position: fixed;
+          left: 0;
         }
         .sidebar-nav img{
           width: 100%;
@@ -50,27 +51,27 @@
           position: fixed;
           width: 220px;
           height: 100%;
+          left: 0;
+          top: 0;
           z-index: 1000;
           transition: all 0.5s;
           -webkit-transition: all 0.5s;
           -ms-transition: all 0.5s;
-          -webkit-transform: translateX(-220px);
           -ms-transform: translateX(-220px);
           transform: translateX(-220px);
           background-color: #191918;
           -webkit-transform-origin: left top;
           -ms-transform-origin: left top;
           transform-origin: left top;
+          opacity: 0;
         }
         .side-bar-show{
           transform: translateX(0);
-          /*transform:rotate(0);*/
-          -webkit-transform: translateX(0);
           -ms-transform: translateX(0);
+          opacity: 1;
         }
         .sidebar-nav-move{
           transform: translateX(230px);
-          -webkit-transform: translateX(230px);
           -ms-transform: translateX(230px);
         }
 
@@ -129,10 +130,10 @@
           height: 35px;
           font-size: 18px;
           line-height: 2;
-          border-bottom: 1px solid rgba(50,50,50,0.4);
+          /* border-bottom: 1px solid rgba(50,50,50,0.4); */
         }
         .left-ul li:hover{
-          border-left: 3px solid lightblue;
+          border-left: 3px solid white;
           /*padding-left: 37px;*/
           background-color: #212120;
         }
@@ -141,6 +142,8 @@
           width: 100%;
           padding-left: 40px;
           color: #FF9966;
+          box-sizing: border-box;
+          border-bottom: 1px solid rgba(50,50,50,0.4);
         }
         .left-ul a:hover{
           padding-left: 37px;
@@ -178,7 +181,6 @@
           top: 370px;
           margin: 0;
         }
-
       </style>
     </template>
   </dom-module>

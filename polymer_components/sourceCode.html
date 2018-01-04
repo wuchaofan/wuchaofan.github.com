@@ -1,0 +1,35 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<dom-module id="source-code">
+  
+  <template>
+    <style>
+      code, pre{
+        margin: 2px;
+      }
+    </style>
+
+    <pre>
+      <code>
+<slot></slot>
+      </code>
+    </pre>
+  </template>
+  <script>
+    //SoftwareDistribution
+    class SourceCode extends Polymer.Element {
+      static get is() { return "source-code"; }
+      ready(){
+        super.ready();
+      }
+      static get properties() {
+        return {
+          codetext: {
+            type: String
+          },
+        }
+      }
+    }
+    customElements.define(SourceCode.is, SourceCode);
+
+  </script>
+</dom-module>

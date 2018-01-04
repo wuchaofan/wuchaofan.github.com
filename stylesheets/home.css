@@ -183,3 +183,35 @@ pre code{
 	top: 370px;
 	margin: 0;
 }
+@media screen and (min-width: 961px){
+	body{
+		padding-left: 220px;
+	}
+}
+.dateblog{
+	font-size: 13px;
+	color: #AAAAAA;
+}
+@media (min-width: 961px){
+	.home-new {
+			margin: 0 20%;
+	}
+}
+@media (min-width: 641px){
+	.home-new {
+			margin: 0 15%;
+	}
+}
+.home-new {
+    padding: 10px;
+}
+.title{
+	text-align: center;
+}
+.subtitle{
+	margin: 4px 0;
+}
+.content p, .content xmp,
+.content pre{
+	margin: 2px;
+}
