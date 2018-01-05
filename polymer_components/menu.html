@@ -62,12 +62,12 @@
       var allA = this.root.querySelector('.side-bar')
         .querySelector('.left-ul').querySelectorAll('a')
       
-      if(document.querySelector('iframe')){
-        $(document.querySelector('iframe').contentDocument).click(function(){
-          sidebarNav.removeClass('sidebar-nav-move');
-          sidebar.removeClass('side-bar-show');
-        })
-      }
+      // if(document.querySelector('iframe')){
+      //   $(document.querySelector('iframe').contentDocument).click(function(){
+      //     sidebarNav.removeClass('sidebar-nav-move');
+      //     sidebar.removeClass('side-bar-show');
+      //   })
+      // }
       if($(window).width() >= 961){
         sidebarNav.addClass('sidebar-nav-move');
         sidebar.addClass('side-bar-show');
