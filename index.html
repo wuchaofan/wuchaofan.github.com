@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-	<title>Service Worker-翻译</title>
-	<link rel="shortcut icon" href="/images/loo.png">
-	<script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2017总结及趋势</title>
+  <script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
 	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
 	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 	<link rel="import" href="/polymer_components/menu.html">
 
-	<style>
-	html,body, .home{
-		height: 100%;
-		overflow: hidden;
-	}
-	iframe{
-		border-width: 0;
-	}
-	@media (min-width:961px)  { 
-    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-		
-	}
-
-	</style>
 </head>
 <body>
-	<menu-element selected-tag="1"></menu-element>
-	<div class="home">
-		<iframe src="/b/sw.html" width="100%" height="100%"></iframe>
+  	<menu-element selected-tag="8"></menu-element>
 
-	</div>
+  <div class="home-new">
+    <h2 class="title">2017总结及趋势<em class="dateblog">2017-12-11</em></h2>
+    <img class="show-img" src="/images/trend.png" alt="trend" style="margin-bottom: 20px;">
+    <div class="content">
+      <i>  前端一直向着模块化组件化、开发简单快捷、性能更高的方向发展。但是也应用到更多的领域，无论后端、VR、AR，还是硬件嵌入式物联网，
+        但是信息传播方式也有巨大的变革，那就是区块链。由于区块链技术的兴起和应用，ipfs(星域网络)的前景本人感觉值得研究和使用，类似的如</i>
+      <a href="https://github.com/HelloZeroNet/ZeroNet">zeronet</a>
+      <i>也是不错的选择，其上面已经有不少内容了，也许会形成巨大的用户群未可知(如果不被封杀的话)。
+        但是区块链更多的应用还有待发现，2018年更多的去了解吧。
+      </i>
+
+    </div>
+  </div>
 </body>
 </html>

@@ -187,6 +187,11 @@ pre code{
 	body{
 		padding-left: 220px;
 	}
+	.show-img{
+		margin-left: -100px;
+		width: calc(100% + 200px) !important;
+	}
+
 }
 .dateblog{
 	font-size: 13px;
@@ -214,4 +219,7 @@ pre code{
 .content p, .content xmp,
 .content pre{
 	margin: 2px;
+}
+.show-img{
+	width: 100%;
 }
