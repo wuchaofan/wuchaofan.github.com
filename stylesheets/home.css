@@ -196,6 +196,7 @@ pre code{
 .dateblog{
 	font-size: 13px;
 	color: #AAAAAA;
+	margin-left: 6px;
 }
 @media (min-width: 961px){
 	.home-new {
