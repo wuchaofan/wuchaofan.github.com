@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>吸顶</title>
+  <script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
+	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="/polymer_components/menu.html">
+  <style>
+    .video{
+      max-width: 300px;
+      margin: 6px;
+    }
+    .img{
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <menu-element selected-tag="14"></menu-element>
+  <div class="home-new">
+    <h2 class="title">吸顶<em class="dateblog">2018-11-28</em></h2>
+    <div class="content" style="padding-bottom: 40px;">
+      <p>前端开发中常见的一个需求是菜单滚动到顶部后吸顶，也即是固定在顶部。我们先来看看如下视频：</p>
+      <video controls class="video">
+        <source src="./assets/sticky.mp4">
+      </video>
+      <p>可以看到菜单在滚动到顶部时是fixed的，接下来我们来看看常见的几种方式及适用场景。</p>
+      <h4>1. 原生scroll事件实现</h4>
+      <p>利用scroll检查滚动容器的scrollTop和菜单的offsetTop，来决定fixed的菜单副本是否显示，
+        为了简单、易于实现以及性能问题，本文实现的几个例子除了第二个例子其他都是用了两个菜单，
+        吸顶的菜单真实是隐藏的第二个菜单，在这里说明一下。</p>
+      <iframe src="https://codesandbox.io/embed/y0zkk984n9" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+      <p>具体实现可以看<a href="https://codesandbox.io/embed/y0zkk984n9">codesandbox</a>中的代码。</p>
+      <h4>2. position: sticky</h4>
+      <p>通常positon使用比较多的是absolute、relative、fixed、static，在这我们使用另外一个position属性，
+        更多详细介绍可网络搜索，网上介绍已经很多了。前端开发兼容性非常重要，这里我们看下兼容性。</p>
+      <img class="img" src="./images/sticky-comp.png" alt="sticky">
+      <p>可以看到safari浏览器上支持的很好，firefox、chrome PC端支持的还不错，但是安卓上支持的不够好。当然我们可以使用polyfill，
+        <a href="https://github.com/wilddeer/stickyfill">stickyfill</a>。
+      </p>
+      <p>具体实现看代码：</p>
+      <iframe src="https://codesandbox.io/embed/9q2r2pq28p" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+      <h4>3. setInterval</h4>
+      <p>看到setInterval自然不必说了，优缺点很明显。优点是对于一些封装的scroll组件非侵入就能实现吸顶，
+        为什么这么说呢，比去vue-scroller并没有提供scroll接口，并且此组件使用touch、mouse事件外加translate模拟实现的scroll组件，
+        所以无法监听scroll事件，甚至元素的位置获取都有些麻烦。但是通过setInterval很容易的实现吸顶，但是缺点也很明显，对于事件间隔很敏感，
+      时间间隔太大吸顶就会延迟；间隔太短，频繁执行对性能又有影响。</p>
+      <p>看代码：</p>
+      <iframe src="https://codesandbox.io/embed/kop4xy9ywr" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+      <h4>4. vue-scroller by scroll event</h4>
+      <p>最后一种只是针对类似这种组件实现模拟出的scroll事件接口，并非真正的scroll事件，以为如touch事件来说，
+        当手指滑动屏幕稍微快一些然后离开屏幕后，滚动还会继续一段。此时并不会出发touchmove事件，也就不从判断菜单位置了，这也是为何touch事件不易做到吸顶。
+      好在vue-scroller源码中有模拟离开屏幕后继续滚动动画的step，我们在其中加上callback以及在touchmove事件中也加上此callback就实现onscroll可以了。</p>
+      <p>具体可见代码，<a href="https://github.com/wuchaofan/vue-scroller">fork</a> vue-scroller的代码，添加了两个接口，scrollingComplete是停止滚动的回调，
+        stepCallback是onscroll回调，具体可见readme。</p>
+      <p>效果如下：</p>
+      <iframe src="https://codesandbox.io/embed/4r39031zw4" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+    </div>
+  </div>
+</body>
+</html>
