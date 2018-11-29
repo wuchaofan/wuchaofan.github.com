@@ -14,9 +14,15 @@
     .video{
       max-width: 300px;
       margin: 6px;
+      object-fit: cover;
+      transform: translateX(-50%);
     }
     .img{
       width: 100%;
+    }
+    .center{
+      width: 100%;
+      transform: translateX(50%);
     }
   </style>
 </head>
@@ -26,9 +32,11 @@
     <h2 class="title">吸顶<em class="dateblog">2018-11-28</em></h2>
     <div class="content" style="padding-bottom: 40px;">
       <p>前端开发中常见的一个需求是菜单滚动到顶部后吸顶，也即是固定在顶部。我们先来看看如下视频：</p>
-      <video controls class="video">
-        <source src="./assets/sticky.mp4">
-      </video>
+      <div class="center">
+        <video controls class="video">
+          <source src="./assets/sticky.mp4">
+        </video>
+      </div>
       <p>可以看到菜单在滚动到顶部时是fixed的，接下来我们来看看常见的几种方式及适用场景。</p>
       <h4>1. 原生scroll事件实现</h4>
       <p>利用scroll检查滚动容器的scrollTop和菜单的offsetTop，来决定fixed的菜单副本是否显示，
