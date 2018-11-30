@@ -20,9 +20,13 @@
     .img{
       width: 100%;
     }
+    .gif{
+      max-width: 300px;
+    }
     .center{
       width: 100%;
-      transform: translateX(50%);
+      display: flex;
+      justify-content: center;
     }
     .home-new{
       overflow-y: auto;
@@ -37,18 +41,14 @@
     <div class="content" style="padding-bottom: 40px;">
       <p>前端开发中常见的一个需求是菜单滚动到顶部后吸顶，也即是固定在顶部。我们先来看看如下视频：</p>
       <div class="center">
-        <video controls class="video">
-          <source src="./assets/sticky.mp4">
-        </video>
+        <img class="gif" src="https://tec-1253747851.cos.ap-shanghai.myqcloud.com/sticky.gif" alt="gif">
       </div>
       <p>可以看到菜单在滚动到顶部时是fixed的，接下来我们来看看常见的几种方式及适用场景。</p>
       <h4>1. 原生scroll事件实现</h4>
       <p>利用scroll检查滚动容器的scrollTop和菜单的offsetTop，来决定fixed的菜单副本是否显示，
         为了简单、易于实现以及性能问题，本文实现的几个例子除了第二个例子其他都是用了两个菜单，
         吸顶的菜单真实是隐藏的第二个菜单，在这里说明一下。</p>
-      <iframe src="https://codesandbox.io/embed/y0zkk984n9" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-      <p>具体实现可以看<a href="https://codesandbox.io/embed/y0zkk984n9">codesandbox</a>中的代码。</p>
-      <h4>2. position: sticky</h4>
+        <iframe src="https://codesandbox.io/embed/y0zkk984n9?module=%2Fsrc%2FApp.vue&view=editor" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>      <h4>2. position: sticky</h4>
       <p>通常positon使用比较多的是absolute、relative、fixed、static，在这我们使用另外一个position属性，
         更多详细介绍可网络搜索，网上介绍已经很多了。前端开发兼容性非常重要，这里我们看下兼容性。</p>
       <img class="img" src="/b/images/sticky-comp.png" alt="sticky">
