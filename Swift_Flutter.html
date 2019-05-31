@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>学习列表 · 记录</title>
+        <title>Swift与Flutter · 记录</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="RenderPage.html" />
+    <link rel="next" href="Sentry.html" />
     
     
 
@@ -87,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -126,7 +126,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="Swift_Flutter.html">
+        <li class="chapter active" data-level="1.4" data-path="Swift_Flutter.html">
             
                 <a href="Swift_Flutter.html">
             
@@ -286,7 +286,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >学习列表</a>
+        <a href="." >Swift与Flutter</a>
     </h1>
 </div>
 
@@ -301,13 +301,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <ul>
-<li>&#x7B97;&#x6CD5;</li>
-<li>&#x518D;&#x770B;VDOM&#xFF0C;&#x624B;&#x5199;&#x4E00;&#x4E2A;</li>
-<li>&#x66F4;&#x6DF1;&#x5165;&#x7684;&#x7814;&#x7A76;&#x524D;&#x7AEF;&#x6027;&#x80FD;&#x4F18;&#x5316;</li>
-<li>&#x6DF1;&#x5165;&#x7814;&#x7A76;webpack&#x6253;&#x5305;</li>
-<li>&#x5199;webpack&#x63D2;&#x4EF6;</li>
-</ul>
+                                <h3 id="swift&#x4E0E;flutter">Swift&#x4E0E;Flutter</h3>
+<p>&#x5728;&#x4F7F;&#x7528;flutter&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x4E86;iOS&#x6216;&#x8005;android&#x9879;&#x76EE;&#xFF0C;&#x5F88;&#x5C11;&#x4F1A;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;flutter create&#x521B;&#x5EFA;&#x7684;&#x9879;&#x76EE;&#xFF0C;</p>
+<p>&#x8FD9;&#x6837;&#x5C31;&#x4EA7;&#x751F;&#x4E86;&#x51E0;&#x4E2A;&#x9700;&#x6C42;&#xFF0C;1&#xFF1A;flutter&#x5185;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x8DEF;&#x7531;&#xFF0C;&#x6211;&#x4EEC;&#x600E;&#x6837;iOS&#x9875;&#x9762;&#x6253;&#x5F00;flutter&#x5462;&#xFF1B;2: &#x6211;&#x4EEC;&#x600E;&#x6837;&#x6253;&#x5F00;&#x6307;&#x5B9A;</p>
+<p>&#x7684;fluuter router&#x9875;&#x9762;&#x5462;&#xFF1B;3: &#x6211;&#x4EEC;&#x600E;&#x6837;&#x8FC7;&#x53BB;flutter&#x9875;&#x9762;&#x6216;&#x8005;&#x4E0E;ios&#x9875;&#x9762;&#x600E;&#x6837;&#x4EA4;&#x4E92;&#x5462;&#xFF0C;&#x672C;&#x6587;&#x4E00;&#x4E00;&#x4ECB;&#x7ECD;&#x3002;</p>
+<h4 id="1-ios&#x6253;&#x5F00;flutter-page">1. iOS&#x6253;&#x5F00;flutter page</h4>
+<p>&#x5BF9;&#x4E8E;&#x5B58;&#x5728;&#x7684;iOS&#x9879;&#x76EE;&#x600E;&#x6837;&#x4E0E;flutter&#x7EE7;&#x627F;&#xFF0C;&#x672C;&#x6587;&#x4E0D;&#x518D;&#x4ECB;&#x7ECD;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x4E86;&#x89E3;&#x53EF;&#x4EE5;&#x770B;<a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps" target="_blank">Add-Flutter-to-existing-apps</a>&#x3002;</p>
+<p>&#x6253;&#x5F00;&#x5F88;&#x7B80;&#x5355;&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<p><img src="img/flutter1.png" alt="flutter1"></p>
+<pre><code class="lang-swift"><span class="hljs-keyword">let</span> flutterEngine = (<span class="hljs-type">UIApplication</span>.shared.delegate <span class="hljs-keyword">as</span>? <span class="hljs-type">AppDelegate</span>)?.flutterEngine;
+<span class="hljs-keyword">let</span> flutterViewController = <span class="hljs-type">FlutterViewController</span>(engine: flutterEngine, nibName: <span class="hljs-literal">nil</span>, bundle: <span class="hljs-literal">nil</span>)!;
+<span class="hljs-keyword">self</span>.present(flutterViewController, animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x518D;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x3002;</p>
+<h4 id="2-&#x6253;&#x5F00;&#x6307;&#x5B9A;router">2. &#x6253;&#x5F00;&#x6307;&#x5B9A;router</h4>
+<p> &#x901A;&#x5E38;&#x6211;&#x4EEC;&#x6253;&#x5F00;&#x9875;&#x9762;&#x65F6;&#x5E76;&#x4E0D;&#x5E0C;&#x671B;&#x5148;&#x8FDB;&#x5165;&#x9ED8;&#x8BA4;&#x9996;&#x9875;&#x518D;&#x8FDB;&#x5165;&#x8BE6;&#x60C5;&#x9875;&#x6216;&#x8005;&#x522B;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5E0C;&#x671B;&#x76F4;&#x63A5;&#x8FDB;&#x5165;&#x7279;&#x5B9A;&#x9875;&#x9762;&#x3002;&#x6BD4;&#x5982;&#x5982;&#x4E0B;flutter router&#x7247;&#x6BB5;&#xFF1A;</p>
+<p><img src="img/flutter3.png" alt="flutter routers"></p>
+<p>&#x9ED8;&#x8BA4;&#x662F;home&#x9875;&#x9762;&#xFF0C;&#x4F46;&#x662F;&#x518D;iOS swift&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x60F3;&#x76F4;&#x63A5;&#x6253;&#x5F00;page1&#xFF0C;&#x8981;&#x600E;&#x6837;&#x505A;&#x5462;&#xFF1F;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="img/flutter2.png" alt="open page1"></p>
+<p>&#x4E0A;&#x9762;&#x5C31;OK&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x600E;&#x6837;&#x5173;&#x95ED;flutter viewcontroller&#x5462;&#xFF1F;</p>
+<h4 id="3-&#x5173;&#x95ED;flutter&#x9875;&#x9762;">3. &#x5173;&#x95ED;flutter&#x9875;&#x9762;</h4>
+<p>&#x6211;&#x4EEC;&#x5728;flutter&#x4E2D;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x65F6;&#x901A;&#x5E38;<code>Navigator.of(context).pop();</code>&#x5C31;&#x80FD;&#x5173;&#x95ED;&#x9875;&#x9762;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x8981;&#x5173;&#x95ED;flutter&#x5BB9;&#x5668;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x9700;&#x8981;MethodChannel&#x529F;&#x80FD;&#x4E86;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5C01;&#x88C5;&#x4E00;&#x4E2A;flutter MethodChannel&#x3002;swift&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="img/bridge.png" alt="bridge"></p>
+<p>&#x4F7F;&#x7528;&#x65F6;&#x4E5F;&#x7B80;&#x5355;&#xFF0C;&#x5728;2&#x4E2D;&#x7684;&#x7B2C;&#x4E8C;&#x5F20;&#x56FE;&#x4E2D;<code>FlutterBridge.register(controller: flutterViewController);</code>&#x8FD9;&#x53E5;&#x5373;&#x53EF;&#xFF0C;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x4F20;&#x9012;&#x53C2;&#x6570;&#x4ECE;<code>call.arguments</code>&#x4E2D;&#x83B7;&#x53D6;&#x3002;flutter&#x4E2D;&#x5C01;&#x88C5;&#x4E00;&#x4E0B;&#xFF0C;&#x5982;&#x4E0B;:</p>
+<p><img src="img/flutter-bridgeclose.png" alt="bridge close"></p>
+<p>&#x8C03;&#x7528;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="img/flutter-page1.png" alt="page1 close"></p>
+<p>&#x6CE8;&#x610F;&#x4E0A;&#x9762;&#x7684;<code>automaticallyImplyLeading: true</code> &#x4EE5;&#x53CA;leading&#x90E8;&#x5206;&#xFF0C;&#x5C31;&#x662F;back button&#xFF0C;&#x4F46;&#x662F;&#x6CE8;&#x610F;_close&#x90E8;&#x5206;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x7531;&#x4E8E;&#x9875;&#x9762;&#x53EF;&#x80FD;&#x662F;flutter&#x5BB9;&#x5668;&#x5176;&#x4ED6;&#x9875;&#x9762;push&#x6253;&#x5F00;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5224;&#x65AD;<code>Navigator.of(context).canPop()</code> &#x5982;&#x679C;&#x4E3A;&#x771F;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;<code>Navigator.of(context).pop();</code> &#x5426;&#x5219;&#x76F4;&#x63A5;<code>FlutterBridge.close();</code> &#x5173;&#x95ED;flutter viewcontroller&#x3002;iOS&#x4E0E;fluter&#x9875;&#x9762;&#x7684;&#x901A;&#x4FE1;MethodChannel&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x5C31;&#x8BF4;&#x5230;&#x8FD9;&#x91CC;, &#x5982;&#x679C;&#x9700;&#x8981;&#x76D1;&#x542C;&#x4E8B;&#x4EF6;&#x5C31;&#x9700;&#x8981;EventChannel&#x4E86;&#x3002;</p>
+<p>&#x5B8C;&#x3002;</p>
 
                                 
                                 </section>
@@ -336,7 +357,7 @@
             
                 
                 
-                <a href="RenderPage.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 渲染的那些事(服务端、前端、预渲染)">
+                <a href="Sentry.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 搭建sentry以及sourcemap">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -347,7 +368,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"学习列表","level":"1.1","depth":1,"next":{"title":"渲染的那些事(服务端、前端、预渲染)","level":"1.2","depth":1,"path":"RenderPage.md","ref":"RenderPage.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"chaofan","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"记录","language":"zh-hans","gitbook":"*"},"file":{"path":"README.md","mtime":"2019-04-18T09:35:50.740Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-05-31T05:06:32.146Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Swift与Flutter","level":"1.4","depth":1,"next":{"title":"搭建sentry以及sourcemap","level":"1.5","depth":1,"path":"Sentry.md","ref":"Sentry.md","articles":[]},"previous":{"title":"吸顶 ","level":"1.3","depth":1,"url":"http://wuchaofan.github.io/b/menu-sticky.html","ref":"http://wuchaofan.github.io/b/menu-sticky.html","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"chaofan","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"记录","language":"zh-hans","gitbook":"*"},"file":{"path":"Swift_Flutter.md","mtime":"2019-05-31T05:04:04.073Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-05-31T05:06:32.146Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
