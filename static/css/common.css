@@ -1,0 +1,65 @@
+.title{
+    text-align: center;
+}
+p{
+  text-indent: 30px;
+}
+body{
+    padding: 10px;
+}
+html{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    line-height: 25px;
+}
+table{
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+    border-collapse:collapse;
+}
+tbody tr:nth-child(odd){
+    background-color: #EFEFEF;
+    
+}
+
+td{
+    padding: 0;
+}
+td + td, th + th{
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+img{
+    width: 60%;
+    margin: 0 auto;
+    display: inherit;
+    max-height: 500px;
+}
+@media (min-width:320px)  { 
+    /* smartphones, iPhone, portrait 480x320 phones */ 
+ img{
+        width: 90%;
+    }
+
+}
+@media (min-width:481px)  { 
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+     img{
+        width: 80%;
+    }
+}
+@media (min-width:641px)  { 
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    body{
+        margin: 0 15%;
+    }
+    img{
+        width: 90%;
+    }
+}
+@media (min-width:961px)  { 
+    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    body{
+        margin: 0 20%;
+    } 
+     img{
+        width: 70%;
+    }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Show</title>
+    <link rel="stylesheet" href="./style1.css">
+    <script type="text/javascript">
+      var isIE = false || !!document.documentMode;
+      if (isIE) {
+        location.href="/demo/d/ieindex.html";
+      }
+
+      function detectmob() {
+        if(window.innerWidth <= 800) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      
+
+      
+    </script>
+  </head>
+  <body>
+
+    <div class="main">
+      <div class="nav">
+        <div id="menu">
+          <span class="line1"></span>
+          <span class="line2"></span>
+          <span class="line3"></span>
+        </div>
+      </div>
+      <div class="menu-list">
+        <ul>
+          <li>
+            <a href="/">
+              <span>首页</span>
+            </a>
+          </li>
+          <li >
+            <a href="/demo/d/index.html">
+              <span>项目</span>
+            </a>
+          </li>
+          <li>
+            <a href="/study.html">
+              <span>随笔</span>
+            </a>
+          </li>
+          <li>
+            <a href="/study.html">
+              <span>关于</span>
+            </a>
+          </li>
+        </ul>
+        <div id="close">
+
+        </div>
+      </div>
+      <div class="container">
+        <div class="box" id="chrome">
+          <a class="box-a" href="/demo/ionicDemo1/index.html">
+      		  <p class="title">仿开眼</p>
+      		  <p class="desc">使用ionic简陋的模仿一下开眼APP.(最好在手机上访问）</p>
+      	  </a>
+        </div>
+        <div class="box" id="firefox">
+          <a class="box-a" href="/demo/tmall/index.html">
+      		  <p class="title">商城</p>
+      		  <p class="desc">使用vue商城demo，案例仿天猫(最好在手机上访问)</p>
+      	  </a>
+        </div>
+        <div class="box" id="ie">
+          <a class="box-a" href="/demo/exist/index.html">
+      		  <p class="title">存在</p>
+      		  <p class="desc">使用vue demo，案例仿存在app(最好在手机上访问)</p>
+      	  </a>
+        </div>
+        <div class="box" id="safari">
+          <a class="box-a" href="/demo/newb/">
+      		  <p class="title">新模板</p>
+      		  <p class="desc">开发中...</p>
+      	  </a>
+        </div>
+        <div class="box" id="opera">
+          <a class="box-a" href="#">
+      		  <p class="title">...</p>
+      		  <p class="desc"> </p>
+      	  </a>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("menu")
+      .addEventListener("click", function(){
+        var main = document.getElementsByClassName('main')[0];
+        main.className += ' main-showmenu'
+      });
+
+      document.getElementById("close")
+      .addEventListener("click", function(){
+        var main = document.getElementsByClassName('main')[0];
+        main.className = 'main'
+      });
+      if(detectmob()){
+        var body = document.getElementsByTagName('body')[0];
+        body.className = "c-body"
+      }else{
+        var body = document.getElementsByTagName('body')[0];
+        body.className = ""
+      }
+    </script>
+  </body>
+</html>

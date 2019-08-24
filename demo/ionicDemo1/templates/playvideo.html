@@ -1,0 +1,8 @@
+<ion-view title="Video">
+<ion-content>
+<video ng-src="{{trustSrc(data.path)}}"  poster="{{data.img}}" height="51%" width="100%">{{data.path}}</video>
+<button class="button button-full button-stable" ng-click="playPause()">playPause</button>
+<button class="button button-full button-stable" ng-click="goFullscreen()">goFullscreen</button>
+
+</ion-content>
+</ion-view>

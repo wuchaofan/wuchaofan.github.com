@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>H5 Demo</title>
+	<link rel="shortcut icon" href="/images/loo.png">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/materialize.min.css">
+	<script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
+	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
+	<style type="text/css">
+	html {
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+	font-size: 18px;
+	}
+
+	body{
+		background-image: url(/images/denim.png);
+	}
+	.row-top{
+		margin-top: 50px;
+	}
+	.tap{
+		width: 100%;
+		height: 200px;
+		cursor: pointer;
+		background-color: #CC9999;
+		box-shadow: 0 0 10px rgba(10,10,10,0.5);
+		transition: all 0.4s;
+		text-align: center;
+		padding: 5px;
+		overflow: auto;
+		border-radius: 10px;
+	}
+	.tap-kaiyan{
+		background-color: #99CCCC;
+	}
+	.tap:hover{
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+	p{
+		margin: 0;
+	}
+	.tap img{
+		width: 100%;
+		height: 100%;
+	}
+	.title{
+		position: relative;
+		top: 10px;
+		/*font-size: 2px;*/
+		color: white;
+		text-shadow: 0 0 1px black;
+	}
+	.desc{
+		position: relative;
+		top: 30px;
+		font-size: 13px;
+	}
+
+	</style>
+</head>
+<body>
+<div class="container">
+  <div class="row row-top">
+      <div class="col s4 m4 l4">
+      	<!-- <a href="ionicDemo1/index.html">Demo1</a> -->
+      	<div class="tap tap-kaiyan">
+      		<p class="title">模仿开眼APP</p>
+      		<p class="desc">使用ionic简陋的模仿一下开眼APP.(最好在手机上访问）</p>
+      	</div>
+	  </div>
+      <div class="col s4 m4 l4">
+				<div class="tap tap-tmall">
+      		<p class="title">商城</p>
+      		<p class="desc">使用vue商城demo，案例仿天猫(最好在手机上访问)</p>
+      	</div>
+      </div>
+	  <div class="col s4 m4 l4">
+				<div class="tap tap-exist">
+      		<p class="title">存在</p>
+      		<p class="desc">使用vue demo，案例仿存在app(最好在手机上访问)</p>
+      	</div>
+      </div>
+<!--       <div class="col s4 m4 l4">
+      	<div class="tap">
+      		1
+      	</div>
+      </div> -->
+  </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.tap-kaiyan').click(function(){
+			$(this).css({'transform': 'scale(0)'});
+			location.href='/demo/ionicDemo1/index.html';
+		})
+		$('.tap-tmall').click(function(){
+			$(this).css({'transform': 'scale(0)'});
+			location.href='/demo/tmall/index.html';
+		})
+		$('.tap-exist').click(function(){
+			$(this).css({'transform': 'scale(0)'});
+			location.href='/demo/exist/index.html';
+		})
+
+		var height = $('.tap').width()*1.1;
+		$('.tap').css({height: height+'px'});
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN
+  on:
+    branch: master
+    
+language: node_js
+
+node_js:
+  - '7'

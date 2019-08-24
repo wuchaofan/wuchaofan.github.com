@@ -1,0 +1,23 @@
+{
+  "name": "wuchaofan.github.com",
+  "version": "1.0.0",
+  "description": "page",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuchaofan/wuchaofan.github.com.git"
+  },
+  "keywords": [
+    "person",
+    "page"
+  ],
+  "author": "chaofan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wuchaofan/wuchaofan.github.com/issues"
+  },
+  "homepage": "https://github.com/wuchaofan/wuchaofan.github.com#readme"
+}

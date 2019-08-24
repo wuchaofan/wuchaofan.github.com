@@ -1,0 +1,146 @@
+<link rel="import" href="/polymer_components/menu_style.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="menu-element">
+
+<template>
+
+  <style include="menu-style-module">
+  </style>
+  <div class="side-nav-button">
+    <a href="#" class="sidebar-nav">
+      <img src="/images/bar.png">
+    </a>
+  </div>
+  <div class="side-bar">
+    <div class="user-cl">
+      <!-- <img src="/images/user.png"> -->
+    </div>
+    <div>
+      <ul class="left-ul">
+        <li>
+          <a href="/b/menu-sticky.html" data-id="14">吸顶</a>
+        </li>
+        <li>
+          <a href="/b/shadow-dom.html" data-id="13">Shadow DOM</a>
+        </li>
+        <li>
+          <a href="/b/svg.html" data-id="12">SVG</a>
+        </li>
+        <li>
+            <a href="/b/scroll-snap.html" data-id="11">CSS: Scroll Snap</a>
+        </li>
+        <li>
+            <a href="/b/overscroll-behavior.html" data-id="10">CSS: overscroll-behavior</a>
+        </li>
+        <li>
+            <a href="/b/pwa.html" data-id="9">PWA</a>
+        </li>
+        <li>
+            <a href="/2017summary.html" data-id="8">2017总结及趋势</a>
+        </li>
+        <li>
+            <a href="/sw.html" data-id="1">Service Worker</a>
+        </li>
+        <!-- <li>
+            <a href="/ssr.html" data-id="7">React 16 SSR</a>
+        </li> -->
+        <li>
+          <a href="https://github.com/wuchaofan/pages/issues" data-id="2">Github随笔 &gt</a>
+        </li>
+        <li>
+          <a href="/demo/onlyone" data-id="3">Onlyone admin</a>
+        </li>
+        <li>
+          <a href="/b/nativeweb.html" data-id="4">动态编码</a>
+        </li>
+        <li><a href="/docker.html" data-id="5">自制Docker</a></li>
+        <li>
+          <a href="/b/filesystem.html" data-id="6">自制文件系统</a>
+        </li>
+  
+        <li>
+          <a href="/study.html">随笔记录 &gt</a>
+        </li>
+        <li><a href="/demo/d/index.html">H5 Demo</a></li>
+        <li><a href="/g/bridge/index.html">小游戏</a></li>
+        <li><a href="#">关于</a></li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116214926-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116214926-1');
+</script>
+<script>
+  class MenuElement extends Polymer.Element {
+    static get is() { return "menu-element"; }
+    ready() {
+      super.ready();
+      // this.scopeSubtree(this.$.container, true);
+
+      var sidebarNav = $(this.root.querySelector('.sidebar-nav'))
+      var sidebar = $(this.root.querySelector('.side-bar'))
+      // console.log(this.selectedTag, typeof this.selectedTag)
+      var allA = this.root.querySelector('.side-bar')
+        .querySelector('.left-ul').querySelectorAll('a')
+      
+      // if(document.querySelector('iframe')){
+      //   $(document.querySelector('iframe').contentDocument).click(function(){
+      //     sidebarNav.removeClass('sidebar-nav-move');
+      //     sidebar.removeClass('side-bar-show');
+      //   })
+      // }
+      if($(window).width() >= 961){
+        sidebarNav.addClass('sidebar-nav-move');
+        sidebar.addClass('side-bar-show');
+      }
+      $(window).resize(function(){
+        if($(window).width() >= 961){
+          sidebarNav.addClass('sidebar-nav-move');
+          sidebar.addClass('side-bar-show');
+        }else{
+          sidebarNav.removeClass('sidebar-nav-move');
+          sidebar.removeClass('side-bar-show');
+        }
+      })
+      // $(document).on('click', function(e){
+
+      //   sidebarNav.removeClass('sidebar-nav-move');
+      //   sidebar.removeClass('side-bar-show');
+      // })
+    
+      sidebarNav.click(function(event){
+        event.stopPropagation();
+        event.preventDefault();
+        $(this).toggleClass('sidebar-nav-move');
+        sidebar.toggleClass('side-bar-show');
+      })
+
+      allA.forEach((element, index) => {
+        if(element.dataset.id === this.selectedTag){
+          element.style.color = 'white'
+        }
+      });
+    }
+
+    static get properties() {
+      return {
+        selectedTag: {
+          type: String,
+          notify: true
+        }
+      }
+    }
+  }
+  customElements.define(MenuElement.is, MenuElement);
+
+
+</script>
+
+</dom-module>

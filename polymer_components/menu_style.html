@@ -1,0 +1,197 @@
+<dom-module id="menu-style-module">
+    <!-- <link rel="import" type="css" href="/stylesheets/materialize.min.css"> -->
+
+    <template>
+      <style>
+        ul{
+          padding: 0;
+          list-style-type: none;
+          margin: 0;
+        }
+        ul li {
+          list-style-type: none;
+        }
+        a{
+          text-decoration: none;
+          -webkit-tap-highlight-color: transparent;
+          background-color: transparent;
+        }
+        .sidebar-nav{
+          position: absolute;
+            top: 10px;
+            width: 44px;
+            height: 44px;
+            z-index: 700;
+            background-color: #333332;
+            border: 0;
+            font-size: 28px;
+            border-radius: 9px;
+            opacity: 0.7;
+            /*left: 10px;*/
+            transform: translateX(10px);
+            -webkit-transform: translateX(10px);
+          -ms-transform: translateX(10px);
+            -webkit-transition: all 0.3s;
+          -ms-transition: all 0.3s;
+          transition: all 0.3s;
+        }
+        @media screen and (min-width: 961px){
+          .sidebar-nav{
+            display: none !important;
+          }
+        }
+        .side-nav-button{
+          z-index: 102;
+          bottom: 80px;
+          position: fixed;
+          left: 0;
+        }
+        .sidebar-nav img{
+          width: 100%;
+          height: 100%;
+          border-radius: 9px;
+            overflow: hidden;
+
+        }
+        .side-bar{
+          position: fixed;
+          width: 220px;
+          height: 100%;
+          left: 0;
+          top: 0;
+          z-index: 1000;
+          transition: all 0.5s;
+          -webkit-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          -ms-transform: translateX(-220px);
+          transform: translateX(-220px);
+          background-color: #191918;
+          -webkit-transform-origin: left top;
+          -ms-transform-origin: left top;
+          transform-origin: left top;
+          opacity: 0;
+          display: flex;
+          flex-direction: column;
+        }
+        .side-bar-show{
+          transform: translateX(0);
+          -ms-transform: translateX(0);
+          opacity: 1;
+        }
+        .sidebar-nav-move{
+          transform: translateX(230px);
+          -ms-transform: translateX(230px);
+        }
+
+        p + code{
+          line-height: 45px;
+        }
+        code{
+          background-color: black;
+          color: white;
+          padding: 10px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+          border-radius: 4px;
+          line-height: 2;
+        }
+        span{
+          background-color: black;
+          color: lightgreen;
+          padding: 3px;
+          border-radius: 4px;
+        }
+        pre code{
+          background-color: white;
+          color: black;
+        }
+        .col p{
+          text-indent: 29px;
+          line-height: 30px;
+        }
+        .develop{
+          font-size: 30px;
+
+        }
+        .user-cl{
+          width: 120px;
+          /* height: 120px; */
+          margin: 0px auto;
+          border-radius: 50%;
+          overflow: hidden;
+          flex: 0 0 10px;
+        }
+        .user-cl img{
+          width: 100%;
+          height: 100%;
+        }
+        .user-cl + div{
+          width: 100%;
+          color: white;
+          /*text-align: center;*/
+          flex: 1;
+          overflow-y: auto;
+        }
+        .left-ul{
+          width: 100%;
+          overflow: hidden;
+        }
+        .left-ul li{
+          /*padding-left: 40px;*/
+          height: 35px;
+          font-size: 18px;
+          line-height: 2;
+          /* border-bottom: 1px solid rgba(50,50,50,0.4); */
+        }
+        .left-ul li:hover{
+          border-left: 3px solid white;
+          /*padding-left: 37px;*/
+          background-color: #212120;
+        }
+        .left-ul a{
+          display: inline-block;
+          width: 100%;
+          padding-left: 20px;
+          color: rgb(75, 196, 125);
+          box-sizing: border-box;
+          border-bottom: 1px solid rgba(50,50,50,0.4);
+        }
+        .left-ul a:hover{
+          padding-left: 37px;
+        }
+        .p-title{
+          text-align: center;
+          font-size: 40px;
+          margin-top: 220px;
+          color: white;
+          text-shadow: 0 0 3px black;
+        }
+        .container ul{
+          padding-left: 40px;
+        }
+        .container li{
+          list-style-type: circle;
+        }
+        .section-title{
+          color: blue;
+          font-weight: bold;
+        }
+        .peitu{
+          width: 330px;
+          height: 300px;
+          margin: 0 auto;
+        }
+        .peitu img{
+          width: 100%;
+          height: 100%;
+        }
+        .uptime{
+          position: absolute;
+          color: white;
+          right: 20px;
+          top: 370px;
+          margin: 0;
+        }
+      </style>
+    </template>
+  </dom-module>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>自制文件系统</title>
+	<link rel="shortcut icon" href="/images/loo.png">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/materialize.min.css">
+	<script type="text/javascript" src="/g/bridge/jquery.2.0.0.min.js"></script>
+	<script type="text/javascript" src="/javascripts/materialize.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/home.css">
+	<style>
+	body{
+		background-image: url(/images/food.png);
+	}
+	</style>
+	<script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="/bower_components/polymer/polymer.html">
+	<link rel="import" href="/polymer_components/menu.html">
+
+</head>
+<body>
+		<menu-element selected-tag="6"></menu-element>
+
+
+<div class="home">
+  <div class="parallax-container">
+    <div class="parallax"><img src="/images/f2-2.jpg"></div>
+  	<p class="p-title">自制文件系统</p>
+  	<p class="uptime">2015/10/24</p>
+  </div>
+  <div class="container">
+  	<div class="row">
+  		<div class="col s12 m12 l12">
+  			<p>上一篇<a href="/">自制Docker</a>中说到文件隔离，怎样获得自己想要的文件系统呢，<a href="http://fs.devloop.org.uk/" target="_blank">文件系统镜像</a>——这个网站提供了一些不同系统的镜像，有busybox、ubuntu、centos等等，在网页的下面并有怎样切换进文件系统的方法。基本步骤如下：（下面的步骤是以下载的Fedora镜像文件做演示的。）</p>
+			<span>bunzip2 Fedora21-x86-root_fs.bz2</span><div style="height: 2px;"></div>
+			<span>mkdir Fedora21-x86-chroot</span><div style="height: 2px;"></div>
+			<span>mount -o loop Fedora21-x86-root_fs Fedora21-x86-chroot</span><div style="height: 2px;"></div>
+			<span>mount -t proc none Fedora21-x86-chroot/proc</span><div style="height: 2px;"></div>
+			<span>chroot Fedora21-x86-chroot</span><div style="height: 2px;"></div>
+			<p>这样就可以在一个系统里可以像Fedora系统工作了。我们知道很多时候仅仅想隔离项目的环境，比如我们使用python开发项目使用virtualenv隔离出这个项目使用的Python版本和依赖库。这篇本章我将用另一种方法隔离Python环境，没错，就是利用文件系统隔离，但是我们在这个文件系统里仅仅装进Python项目需要的东西，其他的我们并不需要，所以是一个轻量的文件系统，或者叫裁剪的文件镜像。所以这就引出两个问题，1. 制作一个空的文件系统镜像，2. 把Python安装进这个镜像里。</p>
+  			<p class="section-title">1、制作一个空的文件系统镜像</p>
+  			<p>首先我们制作空的文件镜像。在linxu下制作很简单。只需要懂得使用dd和mkfs命令。</p>
+			<span>dd if=/dev/zero of=myfilesystem.ext4 bs=100M count=4</span><div style="height: 2px;"></div>
+			<span>mkfs.ext4 myfilesystem.ext4</span>
+			<p>s上面两条命令就是制作一个400M大小的ext4格式的空文件系统镜像。然后我们挂在这个镜像，命令如下：</p>
+			<span>mkdir myfilesystem</span><div style="height: 2px;"></div>
+			<span>mount -o loop myfilesystem.ext4 myfilesystem</span>
+			<p>可以看出这和我们从网上下载的镜像挂载使用没有区别，有区别的是我们这个镜像现在里面是空的，就像我们的空U盘一样挂载在一个myfilesystem文件夹上。我们对myfilesystem的读写就是对镜像的操作。因为这个镜像是空的，所以我们并不能chroot切换进这个文件系统，更不可能把python安装进去，那我我们下一步就是解决这个问题。</p>
+  			<p class="section-title">2、把Python安装进这个镜像里</p>
+  			<p>这一部分是本文最大的一块，也是有些复杂的部分。待续...</p>
+  		</div>
+  	</div>
+  </div>
+</div>
+  <script type="text/javascript">
+  $(function(){
+  	$('.parallax').parallax();
+  })
+  </script>
+</body>
+</html>

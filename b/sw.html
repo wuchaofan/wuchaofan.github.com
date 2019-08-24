@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Service worker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <style>
+      .dateblog{
+        font-size: 13px;
+        color: #AAAAAA;
+      }
+    </style>
+  </head>
+<body id="preview">
+<h1 class="title">Service Worker <em class="dateblog">2017-4-5</em></h1>
+<h2>什么是service worker</h2>
+<p>SW是一个脚本，在浏览器后台运行，与网页隔离。 现在已经包括<a href="https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web">推送通知</a>和后台同步等功能。 在未来，SW将会支持周期性同步或地理位置等其他任务。 本教程中讨论的核心功能是拦截和处理网络请求的能力，包括以编程方式管理响应缓存。</p>
+<h4><a id="SW_8"></a>关于SW注意事项：</h4>
+<ol>
+<li>它是一个<a href="https://www.html5rocks.com/en/tutorials/workers/basics/">JavaScript worker</a>，所以不能直接访问DOM。 SW可以通过<a href="https://html.spec.whatwg.org/multipage/workers.html#dom-worker-postmessage">postMessage</a>接口发送的消息与其控制的页面进行通信，并且这些页面可以在需要时操作DOM；</li>
+<li>SW是一个可编程的网络代理，允许控制如何处理来自您的页面的网络请求；</li>
+<li>它在不使用时终止，并在下次需要时重新启动，因此您无法依SW的onfetch和onmessage处理程序中的全局状态。 如果您有需要在重新启动时持久存在和重用的信息，则SW可以访问IndexedDB API；</li>
+<li>SW广泛使用promise，所以如果你不了解promise，那么你应该停止阅读，<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises">看看promise介绍</a>。</li>
+</ol>
+<h2><a id="service_worker_13"></a>service worker生命周期</h2>
+<p>service worker的生命周期与web网页是完全隔离的。<br>
+想要在你的网站上实现一个service worker，首先你需要在你的页面通过<br>
+javascript代码注册它。注册sw将会使浏览器在后台启动sw安装步骤。<br>
+通常在安装步骤期间，你可以缓存一些静态资源。如果所有的文件被缓存成功了，那么sw已被安装。如果任何文件下载和缓存失败，那么安装步骤将失败，sw不会被启动。如果出现这种情况，不用担心，它会在下一次重新尝试。从上面所说的可知，如果sw安装成功了，你可以确定静态资源已经被缓存了。</p>
+<p>当sw已被安装，下一步是激活sw，这是一个更好的时机去处理旧的缓存，我们将在sw更新部分在做介绍。</p>
+<p>激活步骤完成后，sw将控制所属范围内的所有页面。首次注册sw的页面不会被控制。一旦在sw掌控之中，它会在两种状态之一：要么SW被终止以节省内存，要么将处理从网页发出网络请求或消息时发生的抓取和消息事件。</p>
+<p>以下是第一次安装时SW生命周期的过度简化版本。</p>
+<p><img src="/static/img/sw-lifecycle.png" alt="image"></p>
+<h2><a id="_28"></a>前提条件</h2>
+<h3><a id="_30"></a>浏览器支持</h3>
+<p>支持的浏览器正在增加，Chrome，Firedox和Opera。<a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/status/navigationtimingapi/">Edge快要支持</a>。即使Safari已经暗示了对此SW的支持。<a href="https://jakearchibald.github.io/isserviceworkerready/">你可以看所有浏览器支持的情况</a>。</p>
+<h3><a id="https_33"></a>需要https</h3>
+<p>在开发阶段你可以在本地使用SW，但是如果部署它，需要https。使用SW你可以劫持连接，伪造和过滤Responses。非常强大的功能。这也导致可能某些人非法的利用这个功能。为了避免它，你只需要网站支持https，这要我们才能确保浏览器接收到的SW在传输过程中没有被篡改。</p>
+<h3><a id="Servide_worker_37"></a>注册Servide worker</h3>
+<p>要安装SW，您需要通过在您的页面中注册来启动该过程。这告诉浏览器SW的JavaScript文件所在的位置。</p>
+<pre><code>if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</code></pre>
+<p>上面的代码检查SW API是否可用，如果是，则在页面加载后，/sw.js中的SW将被注册。<br>
+每次页面加载时都可以调用register（）;浏览器将确定SW是否已经注册，并相应处理。<br>
+register（）方法的一个微妙之处是SW文件的位置。你应该注意到SW文件位于域的根目录。这意味着SW的作用范围将是整个domain。换句话说，此SW将收到此域上的所有内容的提取事件。如果我们在/example/sw.js注册SW文件，那么SW只会看到以/example/开头页面的fetch事件。</p>
+<p>你可以通过转到chrome://inspect/#service-workers并查找站点来检查是否启用了SW。当SW首次执行时，你还可以通过chrome://serviceworker-internals查看SW的详细信息。如果只是了解SW的生命周期,这可能仍然是可用的，但是如果在以后被chrome://inspect/#service-workers完全替换的话，也不要惊讶。</p>
+<p>你可能会发现在匿名窗口中测试SW是有用的，以便可以关闭并重新打开，以前的SW不会影响新窗口。 在隐身窗口中创建的任何注册和缓存将在该窗口关闭后被清除。</p>
+<h3><a id="SW_61"></a>安装SW</h3>
+<p>在控制页面启动注册过程之后，我们来看看处理安装事件的SW脚本。<br>
+对于最基本的示例，你需要为安装事件定义回调，并决定要缓存哪些文件。</p>
+<pre><code>self.addEventListener('install', function(event) {
+  // 执行安装步骤
+});
+</code></pre>
+<p>在我们的安装回调内部，我们需要采取以下步骤：</p>
+<ol>
+<li>打开缓存；</li>
+<li>缓存我们的文件；</li>
+<li>确认所有必需的assets是否被缓存。</li>
+</ol>
+<pre><code>var CACHE_NAME = 'my-site-cache-v1';
+var urlsToCache = [
+  '/',
+  '/styles/main.css',
+  '/script/main.js'
+];
+
+self.addEventListener('install', function(event) {
+  // Perform install steps
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+</code></pre>
+<p>在这里，您可以看到我们使用所需的缓存名称调用caches.open()，之后我们调用cache.addAll()并传入我们的文件数组。 这是一个promises链（caches.open()和cache.addAll()）。 event.waitUntil()方法promises并使用它来知道安装需要多长时间，以及是否成功。<br>
+如果所有文件都被成功缓存，那么SW将被安装。如果任何文件无法下载，则安装步骤将失败。这允许您依靠拥有您定义的所有资源，但这意味着您需要注意您决定在安装步骤中缓存的文件列表。定义长列表的文件将增加文件可能无法缓存概率，导致SW不能被安装。这只是一个例子，您可以在安装事件中执行其他任务，或者避免设置安装事件侦听器。</p>
+<h3><a id="_99"></a>缓存和返回请求</h3>
+<p>现在你已经安装了一个SW，你可能想要返回一个缓存的响应。<br>
+在安装了SW并且用户导航到不同的页面或刷新之后，SW将开始接收fetch事件，其示例如下。</p>
+<pre><code>self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        // Cache hit - return response
+        if (response) {
+          return response;
+        }
+        return fetch(event.request);
+      }
+    )
+  );
+});
+</code></pre>
+<p>这里我们定义了我们的fetch事件，在event.respondWith()中，我们从caches.match()传递一个promise。 此方法查看请求，并从SW创建的任何缓存中查找任何缓存的结果。<br>
+如果我们有一个匹配的响应，我们返回缓存的值，否则我们返回一个调用fetch的结果，这将产生一个网络请求并返回数据，如果有任何东西可以从网络检索。<br>
+如果我们要累加缓存新的请求，我们可以通过处理提取请求的响应，然后将其添加到缓存中，如下所示。</p>
+<pre><code>self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        // Cache hit - return response
+        if (response) {
+          return response;
+        }
+
+        // IMPORTANT: Clone the request. A request is a stream and
+        // can only be consumed once. Since we are consuming this
+        // once by cache and once by the browser for fetch, we need
+        // to clone the response.
+        var fetchRequest = event.request.clone();
+
+        return fetch(fetchRequest).then(
+          function(response) {
+            // Check if we received a valid response
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // IMPORTANT: Clone the response. A response is a stream
+            // and because we want the browser to consume the response
+            // as well as the cache consuming the response, we need
+            // to clone it so we have two streams.
+            var responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(function(cache) {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          }
+        );
+      })
+    );
+});
+</code></pre>
+<p>我们在做什么：</p>
+<ol>
+<li>在抓取请求中向.then()添加回调;</li>
+<li>一旦得到响应，我们执行以下检查：
+<ol>
+<li>确保响应有效;</li>
+<li>检查状态是200的响应;</li>
+<li>确保响应类型是基本的，这表明它是来自我们的请求。 这意味着对第三方资产的请求也不被缓存。</li>
+</ol>
+</li>
+<li>如果我们通过检查，我们克隆响应。 这样做的原因是因为响应是Stream，所以只能使用一次。 由于我们希望将浏览器的响应返回使用，并将其传递给缓存以使用，因此我们需要克隆它，以便我们可以将一个发送到浏览器，一个发送到缓存。</li>
+</ol>
+<h3><a id="SW_171"></a>更新SW</h3>
+<p>更新SW有一个时间点，并且需要按照下列步骤：</p>
+<ol>
+<li>更新SW的JavaScript文件， 当用户访问你的站点时，浏览器在后台尝试重新下载服务工作者的脚本文件。 如果SW文件中的字节与目前的文件相比有差异，则认为它是新的；</li>
+<li>新SW将被启动，安装事件将被触发；</li>
+<li>在这一点上，旧的SW仍在控制当前的页面，所以新SW将进入等待状态；</li>
+<li>当你的网站当前打开的页面关闭时，旧的SW将被杀死，新的SW将受到控制；</li>
+<li>一旦你的SW受到控制，其激活事件将被触发。</li>
+</ol>
+<p>激活回调中会发生的一个常见任务是缓存管理。 你在激活回调中要这样做的原因是因为如果要在安装步骤中清除任何旧的缓存，那么任何保持对当前页面的控制的旧SW将突然停止服务来自该缓存的文件。</p>
+<p>假设我们有一个名为’my-site-cache-v1’的缓存，我们希望把它分解成一个缓存用于页面，一个缓存用于博客帖子。这意味着在安装步骤中，我们将创建两个缓存：“pages-cache-v1”和“blog-posts-cache-v1”，在激活步骤中，我们要删除我们较旧的’my-site-cache-v1’。以下代码将通过遍历SW中的所有缓存并删除缓存白名单中未定义的任何缓存来执行此操作。</p>
+<pre><code>self.addEventListener('activate', function(event) {
+
+  var cacheWhitelist = ['pages-cache-v1', 'blog-posts-cache-v1'];
+
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+</code></pre>
+<h3><a id="_203"></a>粗糙的边缘和陷阱</h3>
+<p>SW是全新的。 一系列障碍导致这些问题。 希望这部分可以很快删除，但现在这些值得注意。</p>
+<h4><a id="_206"></a>如果安装失败，我们不擅长告诉你。</h4>
+<p>如果worker注册时，但是没有出现在chrome://inspect /#service-workers或chrome:// serviceworker-internals中，可能由于抛出错误或被拒绝的promise被传递到event.waitUntil()。要解决这个问题，请转到chrome：// serviceworker-internals，并检查“开启DevTools窗口并暂停SW启动进行调试时的JavaScript执行”，并在安装事件开始时放置一个调试器语句。 这一点，除了暂停在未被捕获的例外，应该揭示这个问题。</p>
+<h4><a id="fetch_209"></a>fetch（）的默认值</h4>
+<p>默认情况下没有凭据</p>
+<p>当您使用fetch时，默认情况下，请求不会包含Cookie等凭据。 如果你想要凭据，而是调用：</p>
+<pre><code>fetch(url, {
+  credentials: 'include'
+})
+</code></pre>
+<p>这个行为是有意义的，并且可以说比XHR更复杂的发送凭证的默认值更好，如果URL是相同的，否则是省略它们。 Fetch的行为更像是其他CORS请求，例如&lt;img crossorigin&gt;，除非您使用&lt;img crossorigin =“use-credentials”&gt;选择加入，否则不会发送cookie。</p>
+<h4><a id="NonCORS_222"></a>默认情况下，Non-CORS失败</h4>
+<p>默认情况下，如果不支持CORS，则从第三方URL获取资源将失败。 您可以向请求中添加无CORS选项以克服此问题，尽管这将导致“不透明”响应，这意味着您将无法判断响应是否成功。</p>
+<pre><code>cache.addAll(urlsToPrefetch.map(function(urlToPrefetch) {
+  return new Request(urlToPrefetch, { mode: 'no-cors' });
+})).then(function() {
+  console.log('All resources have been fetched and cached.');
+});
+</code></pre>
+<h4><a id="_233"></a>处理响应图像</h4>
+<p>srcset属性或&lt;picture&gt;元素将在运行时选择最合适的映像资源并进行网络请求。<br>
+对于SW，如果要在安装步骤中缓存图片，您可以选择以下几种：</p>
+<ol>
+<li>安装&lt;picture&gt;元素和srcset属性将请求的所有图像；</li>
+<li>安装图像的单个低分辨率版本;</li>
+<li>安装图像的单个高分辨率版本。</li>
+</ol>
+<p>实际上你应该选择选项2或3，因为下载所有的图片将是浪费存储空间。<br>
+假设您在安装时进行低分辨率版本，并且您想要在页面加载时尝试从网络中检索更高分辨率的图像，但如果高分辨率图像失败，则会回退到低分辨率版本。 这样做很好，很花哨，但有一个问题。<br>
+如果我们有以下两个图像：</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>屏幕像素密度</th>
+<th>宽度</th>
+<th>高度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1x</td>
+<td>400</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2x</td>
+<td>800</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<p>一个srcset的图片，我们会有一些这样的标记：</p>
+<pre><code>&lt;img src=&quot;image-src.png&quot; srcset=&quot;image-src.png 1x, image-2x.png 2x&quot; /&gt;
+</code></pre>
+<p>如果我们在2x显示屏上，那么浏览器会选择下载image-2x.png，如果我们离线，你可以.catch()这个请求，并返回image-src.png，然而浏览器会期望2x屏幕上的额外像素的图像，因此图像将显示为200x200 CSS像素，而不是400x400 CSS像素。 唯一的办法就是在图像上设置一个固定的高度和宽度。</p>
+<pre><code>&lt;img src=&quot;image-src.png&quot; srcset=&quot;image-src.png 1x, image-2x.png 2x&quot;
+ style=&quot;width:400px; height: 400px;&quot; /&gt;
+</code></pre>
+<h3><a id="_260"></a>了解更多</h3>
+<p><a href="https://jakearchibald.github.io/isserviceworkerready/resources.html">service worker</a></p>
+<hr>
+
+</body>
+</html>

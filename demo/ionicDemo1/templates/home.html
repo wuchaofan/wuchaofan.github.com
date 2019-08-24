@@ -1,0 +1,124 @@
+<ion-view title="pangolin" can-swipe-back="false">
+<ion-nav-buttons side="left">
+	  <button class="button button-clear ion-navicon ng-class:{'ion-navicon-trans':changepic};" ng-click="usersetting()">
+	  </button>
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+  <button class="button button-clear ng-class:{'ion-ios-eye':selecttype,'ion-ios-eye-outline':!selecttype && !changepic,'ion-ios-more-outline':changepic};" ng-click="initVir()">
+  </button>
+</ion-nav-buttons>
+
+<ion-content  on-scroll-complete="scrollFinish(scrollTop, scrollLeft)" ng-show="isselectshow">
+  <div class="user-setting ng-class:{'user-setting-show':changepic};" ng-style="{top: changepic? changY: 0}">
+    <div ng-show="changepic">
+      <p>我的收藏</p>
+      <p>我的缓存</p>
+      <p>功能开关</p>
+      <p>我的投稿</p>
+    </div>
+  </div>
+  <div class="custom-row ng-class:{'row-detail': item.isdetail,'row-detail-hide': !item.visiable};" ng-style="{top: item.isdetail? offsetY:($index*200)+'px'}" ng-click="showplay({{item.id}})" ng-repeat="item in data" ng-show="item.visiable">
+      <div class="backimage ng-class:{'backimage-big': item.isdetail};">
+        <div class="image-style ng-class:{'image-show': item.isdetail};" ng-style="{'background-image':'url('+item.img+')'}">
+          <p class="card-title" ng-hide="item.isdetail">测试中</p>
+          <p ng-hide="item.isdetail">#综合 / 00'56"</p>
+          <div class="card-play ng-class:{'card-play-show':item.isdetail};" ng-click="playvideo($index)">
+            <p class="ion-ios-play-outline"></p>
+          </div>
+        </div>
+      </div>
+      <div class="desc-info ng-class:{'desc-info-show': item.isdetail};" on-swipe-up="initVir()" on-swipe-left="showplay({{item.id+1>data.length-1?item.id:item.id+1}})" on-swipe-right="showplay({{item.id-1 < 0?0:item.id-1}})">
+        <div class="desc-image" ng-style="{'background-image':'url('+item.img+')'}"></div>
+        <div class="desc-content">
+            <div class="desc-title">
+              <p>天使之城：洛杉矶延时</p>
+            </div>
+            <div class="desc-space"></div>
+            <div class="desc-type-time">#综合 / 00'56"</div>
+            <div class="desc-detail">互联网是有精神的，即：开放、平等、协作、分享。从谷歌到Facebook,从Craigslist
+              到Pinterest,从YouTube到Airhub,互联网每一个代表性互联网企业的背后，都体现了上述精神的全部或某几个方面。互联网
+              这短短的“八字精神”,其实反映了三个层面的对应关系--应用与应用、应用与用户、用户与用户。真正完美的互联网生态</div>
+            <div class="desc-more">
+              <ul>
+                <li>
+                  <span class="ion-android-favorite-outline"><i>4</i></span>
+                </li>
+                <li ng-click="showshare()">
+                  <span class="ion-share"><i>6</i></span>
+                </li>
+                <li>
+                  <span class="ion-ios-download-outline"><i class="desc-down">缓存</i></span>
+                </li>
+              </ul>
+            </div>
+            <div class="data-tab">
+                <ul>
+                    <li ng-repeat="xindex in []| range: data.length" ng-class="{'data-tab-li': item.isdetail&&xindex==item.id}">{{xindex+1}}/{{data.length}}</li>
+
+                </ul>
+            </div>
+        </div>
+      </div>
+  </div>
+
+</ion-content>
+<ion-content class="select--type" ng-class="{'select--type-show': !isselectshow}">
+  <div class="row">
+    <div class="col col-left">
+      <div class="select-type-img" style="background-image: url(img/t1.png);" ng-click="gettype(0)">
+        <p>#创意</p>
+      </div>
+    </div>
+    <div class="col col-right">
+      <div class="select-type-img" style="background-image: url(img/t2.png);" ng-click="gettype(1)">
+        <p>#运动</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-left">
+      <div class="select-type-img" style="background-image: url(img/t3.png);" ng-click="gettype(2)">
+        <p>#旅行</p>
+      </div>
+    </div>
+    <div class="col col-right">
+      <div class="select-type-img" style="background-image: url(img/t4.png);" ng-click="gettype(3)">
+        <p>#剧情</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-left">
+      <div class="select-type-img" style="background-image: url(img/t1.png);" ng-click="gettype(4)">
+        <p>#动画</p>
+      </div>
+    </div>
+    <div class="col col-right">
+      <div class="select-type-img" style="background-image: url(img/t2.png);" ng-click="gettype(5)">
+        <p>#广告</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-left">
+      <div class="select-type-img" style="background-image: url(img/t3.png);" ng-click="gettype(6)">
+        <p>#音乐</p>
+      </div>
+    </div>
+    <div class="col col-right">
+      <div class="select-type-img" style="background-image: url(img/t4.png);" ng-click="gettype(7)">
+        <p>#开胃</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<div class="tab-select" ng-hide="selecttype|| changepic">
+	<div class="recomment" ng-click="selectshow(true)">每日精选</div>
+	<div class="space"></div>
+	<div class="recomment" ng-click="selectshow(false)">往期精选</div>
+</div>
+</ion-view>
