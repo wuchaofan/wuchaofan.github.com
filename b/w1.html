@@ -34,19 +34,36 @@
   <script src="https://unpkg.com/vue@next"></script>
   <script src="./assets/words.js"></script>
   <script>
-   const ListRendering = {
-    data() {
-      return {
-        words: window.words
-      }
-    },
-    methods: {
-      onClick(w) {
-        
+    function getWordHot() {
+      return JSON.parse(localStorage.getItem('wordHot')|| '{}');
+    }
+    function getSort() {
+      const hot = getWordHot();
+      const hotSort = Object.keys(hot)
+        .map((k) => [k, hot[k]])
+        .sort((a, b) => b[1] - a[1])
+        .map((a) => a[0]);
+      return window.words.reduce((pre, n) => {
+        const has = hot.hasOwnProperty(n);
+        if(!has) pre.push(n);
+        return pre;
+      }, hotSort);
+    }
+    const ListRendering = {
+      data() {
+        return {
+          words: getSort(),
+        }
+      },
+      methods: {
+        onClick(w) {
+          const wordHot = JSON.parse(localStorage.getItem('wordHot')|| '{}');
+          wordHot[w] = Number(wordHot[w] || '0') + 1;
+          localStorage.setItem('wordHot', JSON.stringify(wordHot));
+        }
       }
     }
-  }
-  Vue.createApp(ListRendering).mount('#list-rendering')
+    Vue.createApp(ListRendering).mount('#list-rendering');
 
   </script>
 </body>
