@@ -27,7 +27,7 @@
 </head>
 <body>
   <div id="list-rendering">
-    <div class="item" v-for="w in words">
+    <div class="item" v-for="w in words" @click="onClick(w)">
       {{ w }}
     </div>
   </div>
@@ -38,6 +38,11 @@
     data() {
       return {
         words: window.words
+      }
+    },
+    methods: {
+      onClick(w) {
+        
       }
     }
   }
